@@ -1,1 +1,3 @@
-# unsam_2024_ciencia_de_datos_2
+# Ciencia de datos II
+
+Código de la parte dos del seminario.
