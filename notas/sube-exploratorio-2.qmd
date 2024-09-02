@@ -26,7 +26,6 @@ my_data <- bind_rows(
 )
 ```
 
-
 ```{r}
 names(my_data)
 ```
@@ -34,7 +33,6 @@ names(my_data)
 ```{r}
 readr::write_rds(my_data, file = here::here("data/datos-sube.rds"))
 ```
-
 
 ```{r}
 my_data$DIA_TRANSPORTE %>% head()
@@ -76,6 +74,7 @@ my_data %>%
   summarize(AUH = sum(CANT_TRJ)) %>% 
   head()
 ```
+
 ```{r}
 my_data %>% 
   filter(MOTIVO_ATSF == "AUH") %>% 
@@ -84,5 +83,28 @@ my_data %>%
   summarize(AUH = sum(CANT_TRJ)) %>% 
   ggplot(aes(DIA_TRANSPORTE,AUH))+
   geom_line()
+```
+
+## Graficar con lubridate
+
+```{r}
+
+library(lubridate)
+
+my_data$dia_de_la_semana <- 
+  lubridate::wday(my_data$DIA_TRANSPORTE,label=TRUE)
+```
+
+```{r}
+
+my_data %>% 
+  filter(MOTIVO_ATSF == "AUH") %>% 
+  filter(TIPO_TRANSPORTE == "TOTAL") %>% 
+  group_by(dia_de_la_semana) %>% 
+  summarize(AUH = sum(CANT_TRJ)) %>% 
+  ggplot(aes(dia_de_la_semana,AUH))+
+  geom_col()
+
+
 ```
 
