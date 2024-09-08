@@ -13,18 +13,6 @@ my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].tx
 my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
 ```
 
-## Nombrar CODUSU
-
-```{r}
-nombrar_CODUSU <- function(Hogar_vivienda)
-```
-
-## Nombrar NRO_HOGAR
-
-```{r}
-nombrar_NRO_HOGAR <- function(Numero_hogar)
-```
-
 ## Nombrar AGLOMERADO
 
 ```{r}
@@ -67,8 +55,4 @@ nombrar_AGLOMERADO<- function(AGLOMERADO){
 }
 ```
 
-## Nombrar POND_TIC
-
-```{r}
-nombrar_POND_TIC <- function(Ponderacion_de_no_respuesta_tic)
-```
+## 
