@@ -1,0 +1,44 @@
+---
+title: "sube-exloratorio-3"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(fable)
+library(tsibble)
+my_data <- readr::read_rds(here::here("data","datos-sube.rds"))
+```
+
+## Crear un tstibble
+
+```{r}
+
+my_data %>% 
+  group_by(DIA) %>% 
+  summarize(
+    Pasajeros = sum(CANT_TRJ)
+  ) -> tmp
+
+my_timeline <- tsibble(dia = tmp$DIA, Observation = tmp$Pasajeros)
+```
+
+```{r}
+my_timeline
+```
+
+```{r}
+library(forecast)
+library(fable)
+library(feasts)
+my_timeline |>
+  #fill_gaps(.full=TRUE)|>
+  head(1000) |>
+  model(
+    STL(Observation ~ trend(window = 7) +
+                   season(window = "periodic"),
+    robust = TRUE)) |>
+  components() |>
+  autoplot()
+```
