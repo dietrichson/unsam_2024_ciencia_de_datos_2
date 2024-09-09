@@ -1,92 +1,23 @@
 ---
-title: "Acceso y Uso de Tecnologías de la Información y la Comunicación Barragán"
+title: "Funciones"
 author: "Barragán"
 format: html
 editor: visual
 ---
 
 ```{r}
-#| include: false
-library(tidyverse)
-```
-
-```{r}
-#| include: false
-library(readr)
 my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
 ```
 
 ```{r}
-#| include: false
-library(readr)
 my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
 ```
 
-```{r}
-#| include: false
-temp_df <- my_data |> 
-  select(CODUSU,NRO_HOGAR, AGLOMERADO,POND_TIC,IH_II_01,COMPONENTE,IP_III_04,IP_III_05,IP_III_06)
-```
+## Nombrar AGLOMERADO
 
 ```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Hogar_vivienda = "CODUSU")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Numero_hogar = "NRO_HOGAR")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Ponderacion_de_no_respuesta_tic = "POND_TIC")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Computadoras = "IH_II_01")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Acceso_internet = "IH_II_02")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Rol_hogar = "COMPONENTE")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Uso_internet = "IP_III_04")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Uso_computadora = "IP_III_05")
-```
-
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Uso_celular = "IP_III_06")
-```
-
-```{r}
-temp_df <- my_data |>
-  select(AGLOMERADO) |>
-  mutate(
-    AGLOMERADO = case_when(
+nombrar_AGLOMERADO<- function(AGLOMERADO){
+           case_when(
       AGLOMERADO == 02 ~ "BUENOS AIRES",
       AGLOMERADO == 03 ~ "BUENOS AIRES",
       AGLOMERADO == 04 ~ "LITORAL",
@@ -121,4 +52,7 @@ temp_df <- my_data |>
       AGLOMERADO == 93 ~ "PATAGONIA",
       TRUE ~ "No Encontrado"
     )
+}
 ```
+
+## 

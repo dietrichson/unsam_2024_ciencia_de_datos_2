@@ -13,19 +13,23 @@ https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos-9
 
 Se bajaron los datos por linea de comando
 
-```{bash}
+{bash}
 #| eval: false
 wget https://www.indec.gob.ar/ftp/cuadros/menusuperior/enut/enut2021_base.zip
-```
+
 
 Se descomprimió con unzip por linea de comando.
 
 Descubrimos que las columnas están separados por barra vertical, por lo tanto hay que cargarlos a un data-frame usando una configuración no-estándard.
 
 ## Para cargar en data-frame
-```{r}
+
+{r}
 library(readr)
 my_data <- readr::read_delim(here::here("datos-crudos/enut2021_base.txt"), delim = "|")
-```
 
+
+{r}
+names(my_data)
+```
 

@@ -1,0 +1,37 @@
+---
+title: "Convertir en booleano"
+author: "Barragán"
+format: html
+editor: visual
+---
+
+```{r}
+library(dplyr)
+convertir_en_booleano<- function(respuesta){
+           case_when(
+             respuesta==1~TRUE, 
+             respuesta==2~FALSE,
+             .default = NA
+           )
+}
+```
+
+```{r}
+#|message: false
+my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+
+my_data$tiene_computadora<-convertir_en_booleano(my_data$IH_II_01)
+
+my_data$tiene_internet<-convertir_en_booleano(my_data$IH_II_02)
+```
+
+```{r}
+#testear
+my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+
+my_data2$utilizo_internet<-convertir_en_booleano(my_data$IP_III_04)
+
+my_data2$utilizo_computadora<-convertir_en_booleano(my_data$IP_III_05)
+
+my_data2$utilizo_celular<-convertir_en_booleano(my_data$IP_III_06)
+```
