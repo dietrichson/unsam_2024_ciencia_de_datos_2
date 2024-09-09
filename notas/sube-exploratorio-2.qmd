@@ -24,65 +24,114 @@ my_data <- bind_rows(
   my_data_2023,
   my_data_2024
 )
-```
 
+
+
+```
 
 ```{r}
 names(my_data)
+my_data <- rename(my_data,DIA=DIA_TRANSPORTE,SUBSIDIO=MOTIVO_ATSF)
+my_data
 ```
 
 ```{r}
 readr::write_rds(my_data, file = here::here("data/datos-sube.rds"))
-```
 
-
-```{r}
-my_data$DIA_TRANSPORTE %>% head()
 ```
 
 ```{r}
-range(my_data$DIA_TRANSPORTE)
+my_data$DIA %>% head()
 ```
 
 ```{r}
-my_data %>% 
-  group_by(DIA_TRANSPORTE) %>% 
-  summarize(AUH = sum(MOTIVO_ATSF=="AUH", na.rm = TRUE))
+range(my_data$DIA)
 ```
 
 ```{r}
 my_data %>% 
-  filter(DIA_TRANSPORTE == "2022-08-20") %>% 
-  group_by(MOTIVO_ATSF) %>% 
+  group_by(DIA) %>% 
+  summarize(AUH = sum(SUBSIDIO=="AUH", na.rm = TRUE))
+```
+
+```{r}
+my_data %>% 
+  filter(DIA == "2022-08-20",DIA == "2023-08-20") %>% 
+  group_by(SUBSIDIO) %>% 
   count()
 ```
 
 ```{r}
 my_data %>% 
-  filter(DIA_TRANSPORTE == "2022-08-20") %>% 
+  filter(DIA == "2022-08-20") %>% 
   nrow()
 ```
 
 ```{r}
 my_data %>% 
-  filter(DIA_TRANSPORTE == "2022-08-20") 
+  filter(DIA == "2022-08-20") 
 ```
 
 ```{r}
 my_data %>% 
-  filter(MOTIVO_ATSF == "AUH") %>% 
+  filter(SUBSIDIO == "AUH") %>% 
   filter(TIPO_TRANSPORTE == "TOTAL") %>% 
-  group_by(DIA_TRANSPORTE) %>% 
+  group_by(DIA) %>% 
   summarize(AUH = sum(CANT_TRJ)) %>% 
   head()
 ```
+
 ```{r}
 my_data %>% 
-  filter(MOTIVO_ATSF == "AUH") %>% 
+  filter(SUBSIDIO == "AUH") %>% 
   filter(TIPO_TRANSPORTE == "TOTAL") %>% 
-  group_by(DIA_TRANSPORTE) %>% 
+  group_by(DIA) %>% 
   summarize(AUH = sum(CANT_TRJ)) %>% 
-  ggplot(aes(DIA_TRANSPORTE,AUH))+
+  ggplot(aes(DIA,AUH))+
   geom_line()
 ```
 
+```{r}
+library(forecast)
+my_data_2020 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2020.csv"))
+my_data_2021 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2021.csv"))
+my_data_2022 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2022.csv"))
+my_data_2023 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2023.csv"))
+my_data_2024 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2024.csv"))
+
+```
+
+```{r}
+my_data <- bind_rows(
+  my_data_2020,
+  my_data_2021,
+  my_data_2022,
+  my_data_2023,
+  my_data_2024
+)
+
+```
+
+```{r}
+
+# Crear la serie temporal
+serie_temporal <- ts(my_data, frequency = 12)
+
+# Descomposición STL
+descomposicion <- stl(serie_temporal, s.window = "periodic")
+
+# Visualizar los componentes
+plot(descomposicion)
+
+```
+
+```{r}
+my_data %>% 
+  filter(SUBSIDIO == "AUH") %>% 
+  filter(TIPO_TRANSPORTE == "TOTAL") %>% 
+  group_by(DIA) %>% 
+  summarize(AUH = sum(CANT_TRJ)) %>% 
+  serie_temporal <- ts(my_data, frequency = 12) %>%
+  descomposicion <- stl(serie_temporal,s.window = "periodic")
+plot(descomposicion)
+```
