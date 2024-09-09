@@ -23,9 +23,12 @@ Se descomprimió con unzip por linea de comando.
 Descubrimos que las columnas están separados por barra vertical, por lo tanto hay que cargarlos a un data-frame usando una configuración no-estándard.
 
 ## Para cargar en data-frame
+
 ```{r}
 library(readr)
 my_data <- readr::read_delim(here::here("datos-crudos/enut2021_base.txt"), delim = "|")
 ```
 
-
+```{r}
+names(my_data)
+```
