@@ -1,0 +1,58 @@
+---
+title: "Funciones"
+author: "Barragán"
+format: html
+editor: visual
+---
+
+```{r}
+my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+```
+
+```{r}
+my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+```
+
+## Nombrar AGLOMERADO
+
+```{r}
+nombrar_AGLOMERADO<- function(AGLOMERADO){
+           case_when(
+      AGLOMERADO == 02 ~ "BUENOS AIRES",
+      AGLOMERADO == 03 ~ "BUENOS AIRES",
+      AGLOMERADO == 04 ~ "LITORAL",
+      AGLOMERADO == 05 ~ "LITORAL",
+      AGLOMERADO == 06 ~ "LITORAL",
+      AGLOMERADO == 07 ~ "LITORAL",
+      AGLOMERADO == 08 ~ "LITORAL",
+      AGLOMERADO == 09 ~ "PATAGONIA",
+      AGLOMERADO == 10 ~ "CUYO",
+      AGLOMERADO == 12 ~ "LITORAL",
+      AGLOMERADO == 13 ~ "NOROESTE",
+      AGLOMERADO == 14 ~ "LITORAL",
+      AGLOMERADO == 15 ~ "LITORAL",
+      AGLOMERADO == 17 ~ "PATAGONIA",
+      AGLOMERADO == 18 ~ "NOROESTE",
+      AGLOMERADO == 19 ~ "NOROESTE",
+      AGLOMERADO == 20 ~ "PATAGONIA",
+      AGLOMERADO == 22 ~ "NOROESTE",
+      AGLOMERADO == 23 ~ "NOROESTE",
+      AGLOMERADO == 25 ~ "NOROESTE",
+      AGLOMERADO == 26 ~ "CUYO",
+      AGLOMERADO == 27 ~ "CUYO",
+      AGLOMERADO == 29 ~ "NOROESTE",
+      AGLOMERADO == 30 ~ "PAMPEANA",
+      AGLOMERADO == 31 ~ "PATAGONIA",
+      AGLOMERADO == 32 ~ "BUENOS AIRES",
+      AGLOMERADO == 33 ~ "BUENOS AIRES",
+      AGLOMERADO == 34 ~ "BUENOS AIRES",
+      AGLOMERADO == 36 ~ "CENTRO",
+      AGLOMERADO == 38 ~ "LITORAL",
+      AGLOMERADO == 91 ~ "PATAGONIA",
+      AGLOMERADO == 93 ~ "PATAGONIA",
+      TRUE ~ "No Encontrado"
+    )
+}
+```
+
+## 

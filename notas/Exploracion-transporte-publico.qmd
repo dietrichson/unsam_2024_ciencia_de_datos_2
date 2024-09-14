@@ -22,6 +22,7 @@ names(my_data)
 ```{r}
 head(my_data)
 ```
+
 ```{r}
 range(my_data$DIA_TRANSPORTE)
 ```
@@ -29,7 +30,7 @@ range(my_data$DIA_TRANSPORTE)
 ```{r}
 my_data$MOTIVO_ATSF |> unique()
 ```
+
 ```{r}
 nrow(my_data)
 ```
-

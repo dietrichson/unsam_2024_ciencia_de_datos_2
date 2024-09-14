@@ -1,0 +1,24 @@
+---
+title: "Exploratorio-Tic"
+author: "Aleksander Dietrichson"
+format: html
+editor: visual
+---
+
+## Datos
+
+```{r}
+my_data <- readr::read_delim(here::here("datos-crudos","EPH_usu_hog_tic_t423[1].txt"))
+```
+```{r}
+names(my_data)
+```
+
+```{r}
+my_data <- readr::read_delim(here::here("datos-crudos","EPH_usu_indiv_tic_t423[1].txt"))
+```
+
+```{r}
+names(my_data)
+```
+
