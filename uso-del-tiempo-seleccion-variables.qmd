@@ -1,0 +1,41 @@
+---
+title: "Selección de Columnas"
+format: html
+editor: visual
+---
+
+```{r}
+my_data <- read_delim(here::here("datos-crudos", "enut2021_base.txt"))
+```
+
+```{r}
+library(dplyr)
+
+my_data <- my_data %>% 
+  select(
+    ID,
+    SEXO_SEL,
+    EDAD_SEL,
+    contains("GRANGRUPO")
+    
+    )
+  
+```
+
+
+```{r}
+my_data %>% 
+  group_by(SEXO_SEL) %>% 
+  summarise(
+    Trabajo = mean(TCS_GRANGRUPO_TNR)
+  )
+```
+
+```{r}
+my_data %>% 
+  group_by(SEXO_SEL) %>% 
+  summarise(
+    Trabajo = mean(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+```
+
