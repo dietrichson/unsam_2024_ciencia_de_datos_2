@@ -99,3 +99,32 @@ nombrar_horas_trabajo <- function(BHSL08_SEL){
              .default = "No Encontrado")
 }
 ```
+
+## Uso del tiempo según género
+
+```{r}
+temp_df <- temp_df |>
+  group_by(nombrar_sexo, TCS_GRANGRUPO_TRABAJOTOTAL)
+```
+
+```{r}
+library(dplyr)
+
+my_data <- my_data %>% 
+  select(
+    ID,
+    SEXO_SEL,
+    EDAD_SEL,
+    REGION,
+    NIVEL_EDUCATIVO_AGRUPADO,
+    contains("GRANGRUPO")
+  )
+```
+
+```{bash}
+temp_df <- temp_df |>
+  group_by(nombrar_regiones, TCS_GRANGRUPO_PERSONALES)
+```
+
+```{)}
+```

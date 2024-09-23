@@ -22,7 +22,6 @@ my_data <- my_data %>%
   
 ```
 
-
 ```{r}
 my_data %>% 
   group_by(SEXO_SEL) %>% 
@@ -39,3 +38,7 @@ my_data %>%
   )
 ```
 
+```{r}
+temp_df <- temp_df |>
+  group_by(REGION, regimen_tenencia)
+```
