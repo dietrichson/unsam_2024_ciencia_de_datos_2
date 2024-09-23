@@ -126,5 +126,4 @@ temp_df <- temp_df |>
   group_by(nombrar_regiones, TCS_GRANGRUPO_PERSONALES)
 ```
 
-```{)}
-```
+`{)}`
