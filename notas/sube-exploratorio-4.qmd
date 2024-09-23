@@ -1,0 +1,76 @@
+---
+title: "Exploratorio Subte"
+format: html
+editor: visual
+---
+
+```{r}
+my_data <- readr::read_rds(here::here("data/datos-sube.rds"))
+```
+
+```{r}
+my_data <- my_data %>% 
+  mutate(AÑO = lubridate::year(DIA))
+
+my_data %>% head()
+```
+
+```{r}
+my_summary_by_year <- my_data %>% 
+  group_by(AÑO, SUBSIDIO) %>% 
+  summarize(
+    Pasajes = sum(CANT_TRJ)
+  ) 
+```
+
+```{r}
+my_summary_by_year %>% 
+  ggplot(aes(AÑO, Pasajes, fill = SUBSIDIO))+
+  geom_col()+
+  theme(legend.position  = "bottom")
+```
+
+Como no se ve podemos filtrar:
+
+```{r}
+my_summary_by_year %>% 
+  filter(!is.na(SUBSIDIO), 
+         SUBSIDIO != "OTRO") %>% 
+  ggplot(aes(AÑO, Pasajes, fill = SUBSIDIO))+
+  geom_col()+
+  theme(legend.position  = "bottom")
+```
+
+```{r}
+my_summary_by_year_2 <- my_summary_by_year %>% 
+  filter(!is.na(SUBSIDIO), SUBSIDIO != "OTRO")
+
+my_summary_3 <- my_summary_by_year_2 %>% 
+  group_by(AÑO) %>% 
+  summarize(
+    TOTAL = sum(Pasajes)
+  ) %>% 
+  left_join(my_summary_by_year_2) %>% 
+  mutate(Relativo = Pasajes/TOTAL) 
+
+
+my_summary_3 %>% 
+  ggplot(aes(AÑO, Relativo, fill = SUBSIDIO))+
+  geom_col()+
+  theme(legend.position  = "bottom")
+```
+
+```{r}
+lubridate::month(my_data$DIA %>% tail(), label = TRUE)
+
+```
+
+```{r}
+my_summary_3 %>% 
+  ggplot(aes(AÑO, Relativo, color = SUBSIDIO))+
+  geom_point()+
+  geom_line()+
+  theme(legend.position  = "bottom")
+  
+```
+
