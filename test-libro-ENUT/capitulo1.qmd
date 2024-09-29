@@ -1,0 +1,13 @@
+---
+title: "La distribución del tiempo según el género"
+format: html
+editor: visual
+---
+
+## La distribución del tiempo según el género
+
+Este capítulo se enfoca en responder a la pregunta de si existen diferencias significativas en la distribución del tiempo entre hombres y mujeres. Para ello, se emplea la variable binaria de sexo asignado al nacer (varón/mujer), dado que la cantidad de datos disponibles sobre identidad de género no es lo suficientemente representativa para un análisis concluyente.
+
+El objetivo principal es identificar las diferencias en el uso del tiempo entre hombres y mujeres, analizando cómo el género influye en la participación y el reparto de las actividades cotidianas, tanto dentro como fuera del hogar. A través de este análisis, se busca entender cómo el género condiciona el tiempo dedicado a los distintos ámbitos de la vida diaria.
+
+## 

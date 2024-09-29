@@ -1,0 +1,16 @@
+# Introduction
+
+La Encuesta Nacional del Uso del Tiempo (ENUT) fue realizada por el INDEC en Argentina entre octubre y diciembre de 2021. Esta encuesta busca caracterizar la vida de personas de distintas edades y el tiempo que dedican a las actividades que realizan dentro y fuera de los hogares. El relevamiento se llevó a cabo en 28.520 viviendas seleccionadas de áreas urbanas de todo el país.
+
+Las actividades fueron agrupadas en los siguientes grandes bloques:
+
+    Trabajo
+    Cuidado
+    Actividades domésticas
+    Actividades personales
+    Ocio
+    Trabajo voluntario
+    Sin clasificar
+
+En la publicación de la ENUT 2021 se presentan los resultados definitivos de las tasas de participación, junto con los indicadores del tiempo promedio dedicado a cada actividad. En este libro, se busca analizar diversas variables para identificar y determinar patrones o tendencias en el uso del tiempo, según características como el sexo, la edad, el nivel educativo y la región.
+
