@@ -1,0 +1,199 @@
+---
+title: "ETL Uso del tiempo"
+author: "Aleksander Dietrichson"
+format: html
+editor: visual
+---
+
+## Fuentes
+
+Los datos son de dominio público, del sitio del indec:
+
+https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos-9
+
+Se bajaron los datos por linea de comando
+
+```{bash}
+#| eval: false
+wget https://www.indec.gob.ar/ftp/cuadros/menusuperior/enut/enut2021_base.zip
+```
+
+Se descomprimió con unzip por linea de comando.
+
+Descubrimos que las columnas están separados por barra vertical, por lo tanto hay que cargarlos a un data-frame usando una configuración no-estándard.
+
+## Para cargar en data-frame
+
+```{r}
+library(readr)
+my_data <- readr::read_delim(here::here("datos-crudos/enut2021_base.txt"), delim = "|")
+```
+
+```{r}
+names(my_data)
+```
+
+## Variable "identidad de género"
+
+```{r}
+my_data$BHCH06_SEL %>% table()
+
+```
+
+Hay una variable que reporta identidad de género, pero por su distribución dificilmente tendrá importancia estadística. Por tanto se usa sin mas la variable SEXO_SEL, que refiere al sexo asignado al nacer, dividido únicamente entre "Mujer" y "Varón".
+
+```{r}
+# Nombrar sexo 
+nombrar_sexo <- function(SEXO_SEL){
+           case_when(
+             SEXO_SEL == 1 ~ "Mujer",
+             SEXO_SEL == 2 ~ "Varón",
+             .default = "No Encontrado")
+}
+```
+
+## Variable "Región"
+
+```{r}
+# Nombrar regiones 
+nombrar_regiones <- function(REGION){
+           case_when(
+             region == 1 ~ "Gran Buenos Aires",
+             region == 2 ~ "Pampeana",
+             region == 3 ~ "Noroeste",
+             region == 4 ~ "Noreste",
+             region == 5 ~ "Cuyo",
+             region == 6 ~ "Patagonia",
+             .default = "No Encontrado")
+}
+
+```
+
+## Variable "Nivel Educativo"
+
+```{r}
+# Nombrar Nivel Educativo
+nombrar_nivel_educativo <- function(NIVEL_EDUCATIVO_AGRUPADO){
+           case_when(
+             NIVEL_EDUCATIVO_AGRUPADO == 1 ~ "Hasta primario incompleto",
+             NIVEL_EDUCATIVO_AGRUPADO == 2 ~ "Primario completo y secundario incompleto",
+             NIVEL_EDUCATIVO_AGRUPADO == 3 ~ "Secundario completo",
+             NIVEL_EDUCATIVO_AGRUPADO == 4 ~ "Terciario o universitario incompleto y más",
+             NIVEL_EDUCATIVO_AGRUPADO == 99 ~ "Ns/Nc",
+             .default = "No Encontrado")
+}
+
+```
+
+## Variable "Horas de trabajo semanales"
+
+```{r}
+# Nombrar las horas de trabajo semanales 
+nombrar_horas_trabajo <- function(BHSL08_SEL){
+           case_when(
+             BHSL08_SEL == 1 ~ "Menos de 35 hs",
+             BHSL08_SEL == 2 ~ "Entre 35 y 45 hs",
+             BHSL08_SEL == 3 ~ "Entre 46 y 50 hs",
+             BHSL08_SEL == 4 ~ "Más de 50 hs",
+             BHSL08_SEL == 99 ~ "Ns/Nc",
+             .default = "No Encontrado")
+}
+```
+
+## Uso del tiempo según género
+
+```{r}
+temp_df <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+temp_df
+```
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+```
+
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) 
+```
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+```
+
+
+```{r}
+my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+
+```
+
+
+```{r}
+library(dplyr)
+
+my_data <- my_data %>% 
+  select(
+    ID,
+    SEXO_SEL,
+    EDAD_SEL,
+    REGION,
+    NIVEL_EDUCATIVO_AGRUPADO,
+    contains("GRANGRUPO")
+  )
+```
+
+```{bash}
+temp_df <- temp_df |>
+  group_by(nombrar_regiones, TCS_GRANGRUPO_PERSONALES)
+```
+
+`{)}`
