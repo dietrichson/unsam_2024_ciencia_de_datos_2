@@ -1,0 +1,47 @@
+---
+title: "Exploracion sube NL"
+author: "Natalia"
+format: html
+editor: visual
+---
+
+## Lectura de datos
+
+```{r}
+library(tidyverse)
+library(fable)
+library(tsibble)
+my_data_2020 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2020.csv"))
+my_data_2021 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2021.csv"))
+my_data_2022 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2022.csv"))
+my_data_2023 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2023.csv"))
+my_data_2024 <- readr::read_csv(here::here("datos-crudos/dat-ab-usuarios-2024.csv"))
+
+```
+
+```{r}
+my_data <- bind_rows(
+  my_data_2020,
+  my_data_2021,
+  my_data_2022,
+  my_data_2023,
+  my_data_2024
+)
+my_data
+```
+
+```{r}
+my_data_2024
+```
+
+```{r}
+my_data %>% 
+  group_by(DIA_TRANSPORTE) %>% 
+  summarize(
+    Pasajeros = sum(CANT_TRJ)
+  ) -> tmp
+
+my_timeline <- tsibble(dia = tmp$DIA_TRANSPORTE, Observation = tmp$Pasajeros)
+
+my_timeline
+```

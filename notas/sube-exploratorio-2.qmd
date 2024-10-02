@@ -60,6 +60,7 @@ my_data %>%
   group_by(SUBSIDIO) %>% 
   count()
 ```
+
 ```{r}
 
 my_data %>% 
@@ -70,8 +71,6 @@ my_data %>%
   )
   
 ```
-
-
 
 ```{r}
 my_data %>% 

@@ -74,8 +74,8 @@ my_summary_3 %>%
   
 ```
 
-
 ### Uso de "Arrange"
+
 ```{r}
  
 
@@ -84,4 +84,3 @@ my_data %>% arrange(desc(DIA_TRANSPORTE))
 
 
 ```
-
