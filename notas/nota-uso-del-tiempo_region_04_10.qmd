@@ -1,0 +1,225 @@
+---
+title: "ETL Uso del tiempo"
+author: "Aleksander Dietrichson"
+format: html
+editor: visual
+---
+
+## Fuentes
+
+Los datos son de dominio público, del sitio del indec:
+
+https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos-9
+
+Se bajaron los datos por linea de comando
+
+```{r}
+#| eval: false
+wget https://www.indec.gob.ar/ftp/cuadros/menusuperior/enut/enut2021_base.zip
+```
+
+Se descomprimió con unzip por linea de comando.
+
+Descubrimos que las columnas están separados por barra vertical, por lo tanto hay que cargarlos a un data-frame usando una configuración no-estándard.
+
+## Para cargar en data-frame
+
+```{r}
+library(readr)
+my_data <- readr::read_delim(here::here("datos-crudos/enut2021_base.txt"), delim = "|")
+```
+
+```{r}
+names(my_data)
+```
+
+## Variable "región"
+
+```{r}
+my_data$BHCH06_SEL |> table()
+
+```
+
+```{r}
+# Nombrar regiones 
+nombrar_regiones <- function(REGION){
+           case_when(
+             REGION == 1 ~ "Gran Buenos Aires",
+             REGION == 2 ~ "Pampeana",
+             REGION == 3 ~ "Noroeste",
+             REGION == 4 ~ "Noreste",
+             REGION == 5 ~ "Cuyo",
+             REGION == 6 ~ "Patagonia",
+             .default = "No Encontrado")
+}
+
+```
+
+## Uso del tiempo según región
+
+```{r}
+#trabajo según región
+install.packages("dplyr")
+library(dplyr)
+temp_df_region_trabajo <- my_data |>
+  mutate(Región = nombrar_regiones(REGION)) |>
+  select(Región, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(Región) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+temp_df_region_trabajo
+```
+
+```{r}
+ my_data |>
+  mutate(Región = nombrar_regiones(REGION)) |>
+  select(Región, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(Región) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+```
+
+```{r}
+ my_data |>
+  mutate(Región = nombrar_regiones(REGION)) |>
+  select(Región,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) 
+```
+
+```{r}
+install.packages("ggplot2")
+library(ggplot2)
+ my_data |>
+  mutate(región = nombrar_regiones(REGION)) |>
+  select(región,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+```
+
+```{r}
+temp_df_region_trabajo <-my_data |>
+  mutate(región = nombrar_regiones(REGION)) |>
+  select(región,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL, región) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = región))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_region_trabajo)
+```
+
+```{r}
+# GRÁFICO DE TAREAS PERSONALES
+temp_df_region_personales <- my_data |>
+  mutate(región = nombrar_regiones(REGION)) |>
+  select(región,EDAD_SEL, TCS_GRANGRUPO_PERSONALES) |>
+  group_by(EDAD_SEL, región) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_PERSONALES),
+    Mediana = median(TCS_GRANGRUPO_PERSONALES),
+    Desviacion = sd(TCS_GRANGRUPO_PERSONALES)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = región))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_region_personales)
+```
+
+```{r}
+# GRÁFICO DE TAREAS DOMÉSTICAS
+temp_df_region_domesticas <- my_data |>
+  mutate(región = nombrar_regiones(REGION)) |>
+  select(región,EDAD_SEL, TCS_GRUPO_DOMESTICO) |>
+  group_by(EDAD_SEL, región) |>
+  summarize(
+    Media = mean(TCS_GRUPO_DOMESTICO),
+    Mediana = median(TCS_GRUPO_DOMESTICO),
+    Desviacion = sd(TCS_GRUPO_DOMESTICO)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = región))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_region_domesticas)
+```
+
+```{r}
+# GRÁFICO DE TAREAS CUIDADO
+temp_df_region_cuidado <- my_data |>
+  mutate(región = nombrar_regiones(REGION)) |>
+  select(región,EDAD_SEL, TCS_GRUPO_CUIDADO) |>
+  group_by(EDAD_SEL, región) |>
+  summarize(
+    Media = mean(TCS_GRUPO_CUIDADO),
+    Mediana = median(TCS_GRUPO_CUIDADO),
+    Desviacion = sd(TCS_GRUPO_CUIDADO)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = región))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_region_cuidado)
+```
+
+```{r}
+# GRÁFICO DE TAREAS VOLUNTARIAS
+temp_df_region_voluntarias <- my_data |>
+  mutate(región = nombrar_regiones(REGION)) |>
+  select(región,EDAD_SEL, TCS_GRUPO_VOLUNTARIAS) |>
+  group_by(EDAD_SEL, región) |>
+  summarize(
+    Media = mean(TCS_GRUPO_VOLUNTARIAS),
+    Mediana = median(TCS_GRUPO_VOLUNTARIAS),
+    Desviacion = sd(TCS_GRUPO_VOLUNTARIAS)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = región))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_region_voluntarias)
+```
+
+```{r}
+# GRÁFICO DORMIR
+temp_df_region_dormir <- my_data |>
+  mutate(región = nombrar_regiones(REGION)) |>
+  select(región,EDAD_SEL, TCS_ACT_DORMIR) |>
+  group_by(EDAD_SEL, región) |>
+  summarize(
+    Media = mean(TCS_ACT_DORMIR),
+    Mediana = median(TCS_ACT_DORMIR),
+    Desviacion = sd(TCS_ACT_DORMIR)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = región))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_region_dormir)
+```

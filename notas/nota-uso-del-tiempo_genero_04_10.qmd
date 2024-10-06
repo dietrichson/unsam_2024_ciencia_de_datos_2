@@ -1,0 +1,221 @@
+---
+title: "ETL Uso del tiempo"
+author: "Aleksander Dietrichson"
+format: html
+editor: visual
+---
+
+## Fuentes
+
+Los datos son de dominio público, del sitio del indec:
+
+https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos-9
+
+Se bajaron los datos por linea de comando
+
+```{r}
+#| eval: false
+wget https://www.indec.gob.ar/ftp/cuadros/menusuperior/enut/enut2021_base.zip
+```
+
+Se descomprimió con unzip por linea de comando.
+
+Descubrimos que las columnas están separados por barra vertical, por lo tanto hay que cargarlos a un data-frame usando una configuración no-estándard.
+
+## Para cargar en data-frame
+
+```{r}
+library(readr)
+my_data <- readr::read_delim(here::here("datos-crudos/enut2021_base.txt"), delim = "|")
+```
+
+```{r}
+names(my_data)
+```
+
+## Variable "identidad de género"
+
+```{r}
+my_data$BHCH06_SEL |> table()
+
+```
+
+Hay una variable que reporta identidad de género, pero por su distribución dificilmente tendrá importancia estadística. Por tanto se usa sin mas la variable SEXO_SEL, que refiere al sexo asignado al nacer, dividido únicamente entre "Mujer" y "Varón".
+
+```{r}
+# Nombrar sexo 
+nombrar_sexo <- function(SEXO_SEL){
+           case_when(
+             SEXO_SEL == 1 ~ "Mujer",
+             SEXO_SEL == 2 ~ "Varón",
+             .default = "No Encontrado")
+}
+```
+
+## Uso del tiempo según género
+
+```{r}
+install.packages("dplyr")
+library(dplyr)
+temp_df <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+temp_df
+```
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+```
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) 
+```
+
+```{r}
+install.packages("ggplot2")
+library(ggplot2)
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+```
+
+```{r}
+my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+
+```
+
+```{r}
+# GRÁFICO DE TAREAS PERSONALES
+temp_df_personales <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_PERSONALES) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_PERSONALES),
+    Mediana = median(TCS_GRANGRUPO_PERSONALES),
+    Desviacion = sd(TCS_GRANGRUPO_PERSONALES)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_personales)
+```
+
+```{r}
+# GRÁFICO DE TAREAS DOMÉSTICAS
+temp_df_domesticas <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRUPO_DOMESTICO) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRUPO_DOMESTICO),
+    Mediana = median(TCS_GRUPO_DOMESTICO),
+    Desviacion = sd(TCS_GRUPO_DOMESTICO)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_domesticas)
+```
+
+```{r}
+# GRÁFICO DE TAREAS CUIDADO
+temp_df_cuidado <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRUPO_CUIDADO) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRUPO_CUIDADO),
+    Mediana = median(TCS_GRUPO_CUIDADO),
+    Desviacion = sd(TCS_GRUPO_CUIDADO)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_cuidado)
+```
+
+```{r}
+# GRÁFICO DE TAREAS CUIDADO
+temp_df_voluntarias <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRUPO_VOLUNTARIAS) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRUPO_VOLUNTARIAS),
+    Mediana = median(TCS_GRUPO_VOLUNTARIAS),
+    Desviacion = sd(TCS_GRUPO_VOLUNTARIAS)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_voluntarias)
+```
+
+```{r}
+# GRÁFICO DORMIR
+temp_df_dormir <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_ACT_DORMIR) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_ACT_DORMIR),
+    Mediana = median(TCS_ACT_DORMIR),
+    Desviacion = sd(TCS_ACT_DORMIR)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_dormir)
+```
