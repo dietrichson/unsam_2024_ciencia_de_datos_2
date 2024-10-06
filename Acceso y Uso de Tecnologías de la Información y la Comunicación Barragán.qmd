@@ -5,6 +5,42 @@ format: html
 editor: visual
 ---
 
+## Introducción
+
+En el presente libro se llevara a cabo un análisis cuantitativo referido al vinculo entre por un lado, en base a los datos recogidos de los hogares, el acceso a los dispositivos asi como el acceso a internet. Por otro lado, se analiza en base a los datos recogidos de las personas, el uso de interntet, computaodras y celulares.Para tal proposito, se utilizaran datos del Instituto Nacional de Estadística y Censos (INDEC)([Censos y estadísticas 2023](/cloud/project/data/usu_individual_T423.rds)).
+
+## Datos
+
+Los datos que hemos usado para este análisis provienen del indec. Corresponden a la encuesta permanente de hogares de Mayo de 2024.
+
+## Variables
+
+Las variables que se utilizaran son "Tiene computadora"(Computadoras) y "Tiene acceso a internet"(Tiene_internet) en el caso de la Base hogar.
+
+En el caso de la Base de las Personas, "Uso internet" (Uso_internet), "Uso computadora" (Uso_computadora) y "Uso celular" (Uso\_ celular) .
+
+Todas estas variables seran emparentadas con la variable de regiones(AGLOMERADO).
+
+## **Preguntas de investigación**
+
+A partir de estas variables, podemos planteae las siguientes pregunras de investigacion:
+
+-   ¿Existen diferencias significativas en el acceso a computadoras entre las diferentes regiones de Argentina?
+
+-   ¿Cómo varía el acceso a internet entre las diferentes regiones de Argentina?
+
+-   ¿El uso de internet está asociado con el nivel de acceso a computadoras en las distintas regiones de Argentina?
+
+-   ¿Qué región de Argentina muestra mayor uso de celulares para acceder a internet?
+
+-   ¿Existen diferencias en el uso de computadoras entre las distintas regiones de Argentina, considerando el acceso a internet?
+
+-   ¿Cuál es la relación entre la disponibilidad de computadoras y el uso de celulares en distintas regiones de Argentina?
+
+-   ¿El acceso a internet afecta de manera desigual el uso de tecnología (computadoras, celulares) en diferentes regiones de Argentina?
+
+## Procedimiento
+
 ```{r}
 #| include: false
 library(tidyverse)
@@ -121,4 +157,135 @@ temp_df <- my_data |>
       AGLOMERADO == 93 ~ "PATAGONIA",
       TRUE ~ "No Encontrado"
     )
+```
+
+## Análisis descriptivo
+
+### Base Hogar
+
+```{r}
+library(readr) my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+```
+
+```{r}
+temp_df <- my_data |>    
+  select( AGLOMERADO,Computadoras, Acceso_internet)
+```
+
+```{r}
+#CONSULTAR ERROR
+my_data <- my_data |>
+  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))               table(my_data$AGLOMERADO, my_data$Computadoras)
+```
+
+```{r}
+#| echo: false
+#| label: tbl-aglomeannediansdmad-1
+#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base a hogar"
+##CONSULTAR
+#CUADRO POSESION DE COMPUTADORA
+source(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+my_data |> 
+  mutate(Computadoras="IH_II_01")
+mutate(AGLOMERADO=nombrar_aglomerado(AGLOMERADO))
+  group_by(AGLOMERADO, Computadoras) |> 
+  summarize(
+    Media = mean(Computadoras),
+    Mediana = median(Computadoras),
+    Desviacion = sd(Computadoras),
+    Desvio = mad(Computadoras)
+  )|>
+knitr::kable()
+```
+
+```{r}
+#CONSULTAR
+#CUADRO DE ACCESO A INTERNET POR AGLOMERADO
+my_data |> 
+  group_by(AGLOMERADO) |> 
+  summarize(
+    Media = mean(Acceso_internet),
+    Mediana = median(Acceso_internet),
+    Desviacion = sd(Acceso_internet),
+    Desvio = mad(Acceso_internet)
+  )|>
+knitr::kable()
+```
+
+### Base individuos
+
+```{r}
+#| include: false
+library(readr)
+my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+```
+
+```{r}
+temp_df <- my_data2 |>    
+  select( AGLOMERADO,Uso_internet, Uso_computadoras,Uso_celular)
+```
+
+```{r}
+my_data2 <- my_data2 |>
+  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))               table(my_data2$AGLOMERADO, my_data2$Uso_internet)
+```
+
+```{r}
+#| echo: false
+#| label: tbl-aglomeannediansdmad-1
+#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base ind"
+##CONSULTAR
+#CUADRO USO INTERNET
+source(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+my_data |> 
+  mutate(Uso_internet="IP_III_04")
+mutate(AGLOMERADO=nombrar_aglomerado(AGLOMERADO))
+  group_by(AGLOMERADO, Uso_internet) |> 
+  summarize(
+    Media = mean(Uso_internet),
+    Mediana = median(Uso_internet),
+    Desviacion = sd(Uso_internet),
+    Desvio = mad(Uso_internet)
+  )|>
+knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| label: tbl-aglomeannediansdmad-1
+#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base ind"
+##CONSULTAR
+#CUADRO USO COMPUTADORAS
+source(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+my_data |> 
+  mutate(Uso_computadora = "IP_III_05")
+mutate(AGLOMERADO=nombrar_aglomerado(AGLOMERADO))
+  group_by(AGLOMERADO, Uso_computadora) |> 
+  summarize(
+    Media = mean(Uso_computadora),
+    Mediana = median(Uso_computadora),
+    Desviacion = sd(Uso_computadora),
+    Desvio = mad(Uso_computadora)
+  )|>
+knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| label: tbl-aglomeannediansdmad-1
+#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base ind"
+##CONSULTAR
+#CUADRO USO CELULARES
+source(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+my_data |> 
+  mutate(Uso_celular = "IP_III_06")
+mutate(AGLOMERADO=nombrar_aglomerado(AGLOMERADO))
+  group_by(AGLOMERADO, Uso_celular) |> 
+  summarize(
+    Media = mean(Uso_celular),
+    Mediana = median(Uso_celular),
+    Desviacion = sd(Uso_celular),
+    Desvio = mad(Uso_celular)
+  )|>
+knitr::kable()
 ```
