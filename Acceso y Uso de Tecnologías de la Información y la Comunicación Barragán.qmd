@@ -59,9 +59,13 @@ my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1]
 ```
 
 ```{r}
+source(here::here("R/nombraraglomerado.R"))
+```
+
+```{r}
 #| include: false
 temp_df <- my_data |> 
-  select(CODUSU,NRO_HOGAR, AGLOMERADO,POND_TIC,IH_II_01,COMPONENTE,IP_III_04,IP_III_05,IP_III_06)
+  select(CODUSU,NRO_HOGAR, AGLOMERADO,POND_TIC,IH_II_0,IP_III_04,IP_III_05,IP_III_06)
 ```
 
 ```{r}
@@ -164,7 +168,8 @@ temp_df <- my_data |>
 ### Base Hogar
 
 ```{r}
-library(readr) my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+library(readr) 
+my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
 ```
 
 ```{r}
@@ -175,12 +180,14 @@ temp_df <- my_data |>
 ```{r}
 #CONSULTAR ERROR
 my_data <- my_data |>
-  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))               table(my_data$AGLOMERADO, my_data$Computadoras)
+  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))
+
+table(my_data$AGLOMERADO, my_data$Computadoras)
 ```
 
 ```{r}
 #| echo: false
-#| label: tbl-aglomeannediansdmad-1
+#| label: tbl-aglomeannediansdmad-a
 #| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base a hogar"
 ##CONSULTAR
 #CUADRO POSESION DE COMPUTADORA
