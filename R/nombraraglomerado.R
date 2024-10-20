@@ -1,4 +1,4 @@
-nombrar_AGLOMERADO<- function(AGLOMERADO){
+nombrar_aglomerado<- function(AGLOMERADO){
   case_when(
     AGLOMERADO == 02 ~ "BUENOS AIRES",
     AGLOMERADO == 03 ~ "BUENOS AIRES",

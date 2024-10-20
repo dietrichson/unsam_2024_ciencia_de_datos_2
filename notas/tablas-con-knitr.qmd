@@ -22,7 +22,6 @@ temp_df<- my_data |>
 
 En la tabla @tbl-computadora-por-aglomerado vemos las diferencias...
 
-
 ```{r}
 #| label: tbl-computadora-por-aglomerado
 #| echo: false
@@ -31,7 +30,6 @@ En la tabla @tbl-computadora-por-aglomerado vemos las diferencias...
 table(temp_df$AGLOMERADO, temp_df$Computadoras) 
 
 ```
-
 
 En @tbl-ejemplo-2 vemos una tabla un poco mas sofisticada
 
