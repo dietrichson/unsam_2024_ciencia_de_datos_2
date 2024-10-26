@@ -13,8 +13,7 @@ source(here::here("R/nombrar-sexo.R"))
 knitr::opts_chunk$set(echo=FALSE, message = FALSE)
 ```
 
-
-## Plot 
+## Plot
 
 ```{r}
 #| echo: false
@@ -84,4 +83,3 @@ my_data |>
   labs(x="Edad", y="Tiempo", color = "Genero")
 
 ```
-
