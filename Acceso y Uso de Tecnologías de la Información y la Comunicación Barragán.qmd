@@ -83,11 +83,13 @@ source(here::here("R/nombraraglomerado.R"))
 #| label: tbl-computadora-por-aglomerado
 #| echo: false
 #| tbl-cap: "Numero de computadoras por aglomerado"
-temp_df <- temp_df |>
-  filter(Computadoras %in% c(1,2))
-
-table(temp_df$AGLOMERADO, temp_df$Computadoras) |>
-  knitr::kable( col.names = list("Aglomerado","Si","No"))
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Computadoras=="Si"),
+    No=sum(Computadoras=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
 ```{r}
@@ -96,7 +98,6 @@ table(temp_df$AGLOMERADO, temp_df$Computadoras) |>
 #| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base a hogar"
 ##CONSULTAR
 #CUADRO POSESION DE COMPUTADORA
-source(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
 temp_df|> 
   mutate(Computadoras=IH_II_01)
   mutate(AGLOMERADO =nombrar_aglomerado(AGLOMERADO))
@@ -111,105 +112,56 @@ knitr::kable(temp_df$AGLOMERADO,temp_df$Computadoras)
 ```
 
 ```{r}
-#CONSULTAR
-#CUADRO DE ACCESO A INTERNET POR AGLOMERADO
-my_data |>
-  temp_df|> 
-  mutate(Acceso_internet=IH_II_02)
-  mutate(AGLOMERADO =nombrar_aglomerado(AGLOMERADO))
-  group_by(AGLOMERADO, Acceso_internet) |> 
-  summarize(
-    Media = mean(Acceso_internet, na.rm = TRUE),
-    Mediana = median(Acceso_internet, na.rm = TRUE),
-    Desviacion = sd(Acceso_internet, na.rm = TRUE),
-    Desvio = mad(Acceso_internet, na.rm = TRUE)
-  )|>
-knitr::kable(temp_df$AGLOMERADO,temp_df$Acceso_internet)
-  
-  
-  
-
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Acceso_internet=="Si"),
+    No=sum(Acceso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
+
+### 
+
+### 
 
 ### Base individuos
 
 ```{r}
-temp_df2 <- temp_df2 |>
-  filter(Uso_internet %in% c(1,2))
-
-table(temp_df2$AGLOMERADO, temp_df2$Uso_internet) |>
-  knitr::kable( col.names = list("Aglomerado","Si","No"))
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_internet=="Si"),
+    No=sum(Uso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
 ```{r}
-#| echo: false
-#| label: tbl-aglomeannediansdmad-1
-#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base ind"
-##CONSULTAR
-#CUADRO USO INTERNET
-source(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
-my_data2 |> 
-  mutate(Uso_internet="IP_III_04")
-  mutate(AGLOMERADO=nombrar_aglomerado(AGLOMERADO))
-  group_by(AGLOMERADO, Uso_internet) |> 
-  summarize(
-    Media = mean(Uso_internet, na.rm = TRUE),
-    Mediana = median(Uso_internet, na.rm = TRUE),
-    Desviacion = sd(Uso_internet, na.rm = TRUE),
-    Desvio = mad(Uso_internet, na.rm = TRUE)
-  )|>
-knitr::kable(my_data2$Uso_internet,my_data2$AGLOMERADO)
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_computadora=="Si"),
+    No=sum(Uso_computadora=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
 ```{r}
-#| echo: false
-#| label: tbl-aglomeannediansdmad-1
-#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base ind"
-##CONSULTAR
-#CUADRO USO COMPUTADORAS
-source(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
-my_data2 |> 
-  mutate(Uso_computadora = IP_III_05)
-mutate(AGLOMERADO=nombrar_aglomerado(AGLOMERADO))
-  group_by(AGLOMERADO, Uso_computadora) |> 
-  summarize(
-    Media = mean(Uso_computadora, na.rm = TRUE),
-    Mediana = median(Uso_computadora, na.rm = TRUE),
-    Desviacion = sd(Uso_computadora, na.rm = TRUE),
-    Desvio = mad(Uso_computadora, na.rm = TRUE)
-  )|>
-knitr::kable(my_data2$Uso_computadora,my_data2$AGLOMERADO)
-```
-
-```{r}
-#| echo: false
-#| label: tbl-aglomeannediansdmad-1
-#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base ind"
-##CONSULTAR
-#CUADRO USO CELULARES
-source(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
-temp_df2 |> 
-  mutate(Uso_celular = "IP_III_06")
-  mutate(AGLOMERADO=nombrar_aglomerado(AGLOMERADO))
-  group_by(AGLOMERADO, Uso_celular) |> 
-  summarize(
-    Media = mean(Uso_celular, na.rm = TRUE),
-    Mediana = median(Uso_celular, na.rm = TRUE),
-    Desviacion = sd(Uso_celular, na.rm = TRUE),
-    Desvio = mad(Uso_celular, na.rm = TRUE)
-  )|>
-knitr::kable(temp_df2$AGLOMERADO,temp_df2$Uso_celular)
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_celular=="Si"),
+    No=sum(Uso_celular=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
 ¿El uso de internet está asociado con el nivel de acceso a computadoras en las distintas regiones de Argentina?
 
 ```{r}
-library(dplyr)
-combined_data <- inner_join(my_data, my_data2, by = "AGLOMERADO")
-
-combined_data %>%
-  group_by(AGLOMERADO) %>%
-  summarise(correlacion = cor(Uso_internet, Computadoras, use = "complete.obs"))
+my_data3<-my_data%>%
+  left_join(my_data2,by = c("CODUSU","AGLOMERADO"))
 
 ```
 
