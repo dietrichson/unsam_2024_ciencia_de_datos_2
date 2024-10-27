@@ -10,9 +10,11 @@ Las tareas domésticas son una parte esencial de la vida cotidiana, ya que inclu
 
 Como es sabido, históricamente, las tareas domésticas han sido una responsabilidad asumida principalmente por las mujeres, lo cual refleja una desigualdad estructural en la organización social del tiempo. Sin embargo, la intensidad y la dedicación varían según factores socioeconómicos y geográficos.
 
-En este capítulo, analizaremos cómo se distribuye el tiempo dedicado a las tareas domésticas entre diferentes grupos, examinando la persistencia de roles de género tradicionales, las variaciones regionales en las prácticas domésticas y el impacto del nivel educativo en la participación en estas actividades.
+En este capítulo, se toma la variable de tiempo dedicado a tareas domésticas no pagas, incluyendo: preparar y servir la comida; limpiar la vivienda; lavar, planchar o arreglar la ropa/calzado; reparar y mantener la vivienda o los bienes del hogar; hacer pagos y trámites del hogar; hacer compras para el hogar; cuidar mascotas y plantas.
 
-A partir del analisis de 3 variables (sexo, región, nivel educativo), este capítulo se enfoca en responder a la pregunta de si existen diferencias significativas en la distribución del tiempo dedicado a las tareas domesticas del hogar en argentina.
+Analizaremos cómo se distribuye el tiempo dedicado a las tareas domésticas entre diferentes grupos, examinando la persistencia de roles de género tradicionales y las variaciones regionales en las prácticas domésticas en la participación en estas actividades.
+
+A partir del analisis de 2 variables (sexo y región), este capítulo se enfoca en responder a la pregunta de si existen diferencias significativas en la distribución del tiempo dedicado a las tareas domesticas del hogar en argentina.
 
 ### Género
 
@@ -31,7 +33,7 @@ knitr::opts_chunk$set(echo=FALSE, message = FALSE)
 ```{r}
 #| echo: false
 #| message: false
-#| fig.cap: "Figura 1: Tiempo promedio dedicado a tareas domésticas por género"
+#| fig.cap: "Figura 1.1: Tiempo promedio dedicado a tareas domésticas por género"
 my_data |>
   mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
   select(sexo, EDAD_SEL, TCS_GRUPO_DOMESTICO) |>
@@ -81,7 +83,7 @@ nombrar_regiones <- function(REGION){
 ```{r}
 #| echo: false
 #| message: false
-#| fig.cap: "Figura 2: Tiempo promedio dedicado a tareas domésticas por región"
+#| fig.cap: "Figura 1.2: Tiempo promedio dedicado a tareas domésticas por región"
 my_data |>
   mutate(Región = nombrar_regiones(REGION)) |>
   select(Región, EDAD_SEL, TCS_GRUPO_DOMESTICO) |>
@@ -103,41 +105,3 @@ my_data |>
 Como se observa en la Figura 2, no se encuentran diferencias muy marcadas en la distribución del tiempo entre las distintas zonas del país. Sin embargo, se destacan algunas particularidades: en el Noreste, el tiempo promedio dedicado a las tareas domésticas tiende a ser menor en comparación con otras regiones, mientras que en Cuyo se registra la mayor dedicación.
 
 Además, en todas las regiones se observa una tendencia similar en la curva de dedicación al trabajo doméstico, con un aumento significativo en el tiempo destinado a estas tareas entre los 60 y 80 años. Esto sugiere que, independientemente de la región, las personas mayores asumen una mayor carga en las actividades del hogar, probablemente debido a la jubilación o al cambio en las dinámicas familiares.
-
-### Nivel educativo
-
-```{r}
-#| echo: false
-#| message: false
-nombrar_nivel_educativo <- function(NIVEL_EDUCATIVO_AGRUPADO){
-           case_when(
-             NIVEL_EDUCATIVO_AGRUPADO == 1 ~ "Hasta primario incompleto",
-             NIVEL_EDUCATIVO_AGRUPADO == 2 ~ "Primario completo y secundario incompleto",
-             NIVEL_EDUCATIVO_AGRUPADO == 3 ~ "Secundario completo",
-             NIVEL_EDUCATIVO_AGRUPADO == 4 ~ "Terciario o universitario incompleto y más",
-             NIVEL_EDUCATIVO_AGRUPADO == 9 ~ "Ns/Nc",
-             .default = "No Encontrado")
-}
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| fig.cap: "Figura 3: Tiempo promedio dedicado a tareas domésticas por nivel educativo"
-my_data |>
-  mutate(Educación = nombrar_nivel_educativo(NIVEL_EDUCATIVO_AGRUPADO)) |>
-  select(Educación, EDAD_SEL, TCS_GRUPO_DOMESTICO) |>
-  group_by(EDAD_SEL, Educación) |>
-  summarize(
-    Media = mean(TCS_GRUPO_DOMESTICO),
-    Mediana = median(TCS_GRUPO_DOMESTICO),
-    Desviacion = sd(TCS_GRUPO_DOMESTICO)
-  ) |> 
-  ggplot(aes(x = EDAD_SEL, y = Media, color = Educación)) +
-  # geom_col() +
-  geom_smooth() +
-  scale_x_continuous(breaks = seq(0, 100, by = 10)) +
-  xlab("Edad") +
-  ylab("Tiempo (en minutos)") +
-  ggtitle("Tareas domésticas por nivel educativo")
-```

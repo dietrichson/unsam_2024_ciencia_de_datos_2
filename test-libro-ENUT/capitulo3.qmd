@@ -1,37 +1,29 @@
 ---
-title: "La distribución del tiempo en las tareas personales"
+title: "La distribución del tiempo en las tareas de bienestar y salud"
 format: html
 editor: visual
 ---
 
-## La distribución del tiempo en las tareas personales
+## La distribución del tiempo en las tareas de bienestar y salud
 
-Las tareas domésticas son una parte esencial de la vida cotidiana, ya que incluyen actividades necesarias para el funcionamiento del hogar, como la limpieza, la cocina y el mantenimiento del espacio habitacional. En el contexto de la ENUT 2021, estas actividades revelan importantes disparidades en la distribución del tiempo según sexo, región y nivel educativo.
+En este tercer capítulo, abordaremos el tiempo dedicado a actividades esenciales para el bienestar y la salud, centrándonos en dos variables clave: dormir y hacer deporte. En la actualidad, existe una creciente concienciación sobre la importancia de estos hábitos para mantener una vida sana y equilibrada. Dormir lo suficiente es fundamental para la recuperación física y mental, mientras que la práctica regular de deporte contribuye a la prevención de enfermedades y al fortalecimiento general del organismo.
 
-Como es sabido, históricamente, las tareas domésticas han sido una responsabilidad asumida principalmente por las mujeres, lo cual refleja una desigualdad estructural en la organización social del tiempo. Sin embargo, la intensidad y la dedicación varían según factores socioeconómicos y geográficos.
-
-En este capítulo, analizaremos cómo se distribuye el tiempo dedicado a las tareas domésticas entre diferentes grupos, examinando la persistencia de roles de género tradicionales, las variaciones regionales en las prácticas domésticas y el impacto del nivel educativo en la participación en estas actividades.
-
-A partir del analisis de 3 variables (sexo, región, nivel educativo), este capítulo se enfoca en responder a la pregunta de si existen diferencias significativas en la distribución del tiempo dedicado a las tareas domesticas del hogar en argentina.
+Este análisis permitirá explorar cómo se distribuye el tiempo destinado a estas actividades en distintos grupos de la población, identificando posibles desigualdades en función del género y la región.
 
 ### Género
-
-En primer lugar, se emplea la variable binaria de sexo asignado al nacer (varón/mujer), dado que la cantidad de datos disponibles sobre identidad de género no es lo suficientemente representativa para un análisis concluyente.
-
-El objetivo principal es identificar las diferencias en el uso del tiempo entre hombres y mujeres, analizando cómo el género influye en la participación y el reparto de las actividades cotidianas, tanto dentro como fuera del hogar.
 
 ```{r}
 #| echo: false
 #| message: false
-#| fig.cap: "Figura 1: Tiempo promedio dedicado a tareas personales por género"
+#| fig.cap: "Figura 3.1.1: Tiempo promedio dedicado a dormir por género"
 my_data |>
   mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
-  select(sexo, EDAD_SEL, TCS_GRANGRUPO_PERSONALES) |>
+  select(sexo, EDAD_SEL, TCS_ACT_DORMIR) |>
   group_by(EDAD_SEL, sexo) |>
   summarize(
-    Media = mean(TCS_GRANGRUPO_PERSONALES),
-    Mediana = median(TCS_GRANGRUPO_PERSONALES),
-    Desviacion = sd(TCS_GRANGRUPO_PERSONALES)
+    Media = mean(TCS_ACT_DORMIR),
+    Mediana = median(TCS_ACT_DORMIR),
+    Desviacion = sd(TCS_ACT_DORMIR)
   ) |> 
   ggplot(aes(x = EDAD_SEL, y = Media, color = sexo)) +
   # geom_col() +
@@ -39,9 +31,39 @@ my_data |>
   scale_x_continuous(breaks = seq(0, 100, by = 10)) +
   xlab("Edad") +
   ylab("Tiempo (en minutos)") +
-  ggtitle("Tareas personales por género")
+  ggtitle("Tiempo destinado a dormir por género")
 
 ```
+
+El análisis del tiempo dedicado a dormir según el género muestra que, en general, no hay diferencias muy marcadas entre hombres y mujeres. Sin embargo, se observa una leve predominancia en el tiempo de sueño de las mujeres hasta aproximadamente los 75 años. A partir de esa edad, la tendencia se invierte, y los hombres comienzan a dedicar más tiempo al descanso nocturno.
+
+```{r}
+#| echo: false
+#| message: false
+#| fig.cap: "Figura 3.1.2: Tiempo promedio dedicado a hacer deporte por género"
+my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, EDAD_SEL, TCS_ACT_DEPORTE) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_ACT_DEPORTE),
+    Mediana = median(TCS_ACT_DEPORTE),
+    Desviacion = sd(TCS_ACT_DEPORTE)
+  ) |> 
+  ggplot(aes(x = EDAD_SEL, y = Media, color = sexo)) +
+  # geom_col() +
+  geom_smooth() +
+  scale_x_continuous(breaks = seq(0, 100, by = 10)) +
+  xlab("Edad") +
+  ylab("Tiempo (en minutos)") +
+  ggtitle("Tiempo destinado a hacer deporte por género")
+```
+
+El análisis del tiempo dedicado a la práctica de deporte según el género muestra que, en general, los hombres siempre dedican más tiempo a esta actividad que las mujeres. La diferencia es más notable en la adolescencia, alrededor de los 15 años, donde la brecha alcanza su mayor amplitud. Sin embargo, a medida que las personas envejecen, el tiempo destinado al deporte tiende a disminuir en ambos géneros.
+
+La curva de dedicación al deporte sigue una tendencia descendente a lo largo de la vida. En el caso de los hombres, la reducción es más abrupta, con una caída pronunciada a partir de la adolescencia y la juventud temprana. En cambio, para las mujeres, la disminución es más gradual y progresiva. Esta diferencia en la velocidad del descenso indica que los hombres tienden a reducir su tiempo en actividades deportivas de manera más drástica con la edad, mientras que en las mujeres, el descenso es menos brusco, aunque constante.
+
+En conjunto, estos patrones reflejan cómo la participación en actividades deportivas es más intensa en edades jóvenes y va disminuyendo a medida que avanzan los años, con diferencias notables en la forma en que esta reducción se manifiesta entre hombres y mujeres.
 
 ### Región
 
@@ -63,15 +85,15 @@ nombrar_regiones <- function(REGION){
 ```{r}
 #| echo: false
 #| message: false
-#| fig.cap: "Figura 2: Tiempo promedio dedicado a tareas personales por región"
+#| fig.cap: "Figura 3.2.1: Tiempo promedio dedicado a dormir por región"
 my_data |>
   mutate(Región = nombrar_regiones(REGION)) |>
-  select(Región, EDAD_SEL, TCS_GRANGRUPO_PERSONALES) |>
+  select(Región, EDAD_SEL, TCS_ACT_DORMIR) |>
   group_by(EDAD_SEL, Región) |>
   summarize(
-    Media = mean(TCS_GRANGRUPO_PERSONALES),
-    Mediana = median(TCS_GRANGRUPO_PERSONALES),
-    Desviacion = sd(TCS_GRANGRUPO_PERSONALES)
+    Media = mean(TCS_ACT_DORMIR),
+    Mediana = median(TCS_ACT_DORMIR),
+    Desviacion = sd(TCS_ACT_DORMIR)
   ) |> 
   ggplot(aes(x = EDAD_SEL, y = Media, color = Región)) +
   # geom_col() +
@@ -79,43 +101,31 @@ my_data |>
   scale_x_continuous(breaks = seq(0, 100, by = 10)) +
   xlab("Edad") +
   ylab("Tiempo (en minutos)") +
-  ggtitle("Tareas personales por región")
-```
-
-### Nivel educativo
-
-```{r}
-#| echo: false
-#| message: false
-nombrar_nivel_educativo <- function(NIVEL_EDUCATIVO_AGRUPADO){
-           case_when(
-             NIVEL_EDUCATIVO_AGRUPADO == 1 ~ "Hasta primario incompleto",
-             NIVEL_EDUCATIVO_AGRUPADO == 2 ~ "Primario completo y secundario incompleto",
-             NIVEL_EDUCATIVO_AGRUPADO == 3 ~ "Secundario completo",
-             NIVEL_EDUCATIVO_AGRUPADO == 4 ~ "Terciario o universitario incompleto y más",
-             NIVEL_EDUCATIVO_AGRUPADO == 9 ~ "Ns/Nc",
-             .default = "No Encontrado")
-}
+  ggtitle("Tiempo destinado a dormir por región")
 ```
 
 ```{r}
 #| echo: false
 #| message: false
-#| fig.cap: "Figura 3: Tiempo promedio dedicado a tareas personales por nivel educativo"
+#| fig.cap: "Figura 3.2.2: Tiempo promedio dedicado a hacer deporte por región"
 my_data |>
-  mutate(Educación = nombrar_nivel_educativo(NIVEL_EDUCATIVO_AGRUPADO)) |>
-  select(Educación, EDAD_SEL, TCS_GRANGRUPO_PERSONALES) |>
-  group_by(EDAD_SEL, Educación) |>
+  mutate(Región = nombrar_regiones(REGION)) |>
+  select(Región, EDAD_SEL, TCS_ACT_DEPORTE) |>
+  group_by(EDAD_SEL, Región) |>
   summarize(
-    Media = mean(TCS_GRANGRUPO_PERSONALES),
-    Mediana = median(TCS_GRANGRUPO_PERSONALES),
-    Desviacion = sd(TCS_GRANGRUPO_PERSONALES)
+    Media = mean(TCS_ACT_DEPORTE),
+    Mediana = median(TCS_ACT_DEPORTE),
+    Desviacion = sd(TCS_ACT_DEPORTE)
   ) |> 
-  ggplot(aes(x = EDAD_SEL, y = Media, color = Educación)) +
+  ggplot(aes(x = EDAD_SEL, y = Media, color = Región)) +
   # geom_col() +
   geom_smooth() +
   scale_x_continuous(breaks = seq(0, 100, by = 10)) +
   xlab("Edad") +
   ylab("Tiempo (en minutos)") +
-  ggtitle("Tareas personales por nivel educativo")
+  ggtitle("Tiempo destinado a hacer deporte por región")
 ```
+
+El análisis del tiempo dedicado a la práctica de deporte según la región muestra una predominancia de la Patagonia a lo largo de casi toda la vida. Esta región presenta niveles más altos de dedicación al deporte en comparación con otras, lo que puede estar relacionado con su entorno natural y la cultura deportiva. Sin embargo, a partir de los 85 años, se observa un descenso abrupto en el tiempo destinado al deporte en la Patagonia.
+
+En contraste, el Gran Buenos Aires (GBA) mantiene una curva más estable a lo largo de la vida, con menores fluctuaciones en la dedicación al deporte. A partir de los 85 años, GBA toma la delantera respecto a las demás regiones, mostrando una mayor consistencia en la práctica deportiva en edades avanzadas. Esto podría estar relacionado con la mayor oferta de actividades físicas adaptadas a adultos mayores en la gran ciudad o con estilos de vida que favorecen una mayor continuidad en la actividad física.
