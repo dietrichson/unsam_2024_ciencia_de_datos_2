@@ -129,7 +129,6 @@ temp_df
 
 ```
 
-
 ```{r}
  my_data |>
   mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
@@ -158,7 +157,6 @@ temp_df
   scale_x_continuous(breaks = seq(0,100, by =10))
 ```
 
-
 ```{r}
 my_data |>
   mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
@@ -175,7 +173,6 @@ my_data |>
   scale_x_continuous(breaks = seq(0,100, by =10))
 
 ```
-
 
 ```{r}
 library(dplyr)
