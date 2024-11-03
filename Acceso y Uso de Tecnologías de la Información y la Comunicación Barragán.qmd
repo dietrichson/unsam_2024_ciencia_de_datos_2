@@ -21,7 +21,7 @@ En el caso de la Base de las Personas, "Uso internet" (Uso_internet), "Uso compu
 
 Todas estas variables seran emparentadas con la variable de regiones(AGLOMERADO).
 
-## **Preguntas de investigación**
+## Preguntas de investigación
 
 A partir de estas variables, podemos planteae las siguientes pregunras de investigacion:
 
@@ -53,33 +53,37 @@ source(here::here("R/nombraraglomerado.R"))
 my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
 temp_df<- my_data |>
   mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))|>
-  mutate(Computadoras = IH_II_01)|>
-  mutate( Acceso_internet = IH_II_02)
+  filter(IH_II_01<=2)|>
+  filter(IH_II_02<=2)|>
+  mutate(Computadoras=ifelse(IH_II_01==1,"Si","No"))|>
+  mutate(Acceso_internet=ifelse(IH_II_02    ==1,"Si","No"))
+ # mutate(Computadoras = IH_II_01)|>
+  #mutate( Acceso_internet = IH_II_02)
 ```
 
 ```{r}
 #| include: false
-library(tidyverse)
-source(here::here("R/nombraraglomerado.R"))
 my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
 temp_df2<- my_data2 |>
   mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))|>
-  mutate( Uso_internet = IP_III_04)|>
-  mutate( Uso_computadora = IP_III_05)|>
-  mutate(Uso_celular=IP_III_06)
+filter(IP_III_04<=2)|>
+  filter(IP_III_05<=2)|>
+filter(IP_III_06<=2)|>
+mutate(Uso_internet=ifelse(IP_III_04==1,"Si","No"))|>
+  mutate(Uso_computadora=ifelse(IP_III_05==1,"Si","No"))|>
+mutate(Uso_celular=ifelse(IP_III_06==1,"Si","No"))
+  #mutate( Uso_internet = IP_III_04)|>
+  #mutate( Uso_computadora = IP_III_05)|>
+  #mutate(Uso_celular=IP_III_06)
 
 ```
 
-```{r}
-source(here::here("R/nombraraglomerado.R"))
-```
 
 ## Análisis descriptivo
 
 ### Base Hogar
 
 ```{r}
-#CONSULTAR
 #| label: tbl-computadora-por-aglomerado
 #| echo: false
 #| tbl-cap: "Numero de computadoras por aglomerado"
@@ -90,25 +94,6 @@ temp_df%>%
     No=sum(Computadoras=="No")
   )%>%
   mutate(Percent=Si/(Si+No))
-```
-
-```{r}
-#| echo: false
-#| label: tbl-aglomeannediansdmad-a
-#| fig-cap: "Tabla media, mediana, desviacion y desvio por region en base a hogar"
-##CONSULTAR
-#CUADRO POSESION DE COMPUTADORA
-temp_df|> 
-  mutate(Computadoras=IH_II_01)
-  mutate(AGLOMERADO =nombrar_aglomerado(AGLOMERADO))
-  group_by(AGLOMERADO, Computadoras) |> 
-  summarize(
-    Media = mean(Computadoras, na.rm = TRUE),
-    Mediana = median(Computadoras, na.rm = TRUE),
-    Desviacion = sd(Computadoras, na.rm = TRUE),
-    Desvio = mad(Computadoras, na.rm = TRUE)
-  )|>
-knitr::kable(temp_df$AGLOMERADO,temp_df$Computadoras)
 ```
 
 ```{r}
@@ -183,7 +168,7 @@ my_data2 %>%
 ```{r}
 library(dplyr)
 
-my_data,my_data2 %>%
+my_data %>%
   group_by(nombrar_aglomerado(AGLOMERADO), Acceso_internet) %>%
   summarise(Uso_computadora = mean(Uso_computadora, na.rm = TRUE)) %>%
   arrange(desc(Uso_computadora))
@@ -195,7 +180,7 @@ my_data,my_data2 %>%
 ```{r}
 library(dplyr)
 
-my_data,my_data2 %>%
+my_data%>%
   group_by(nombrar_aglomerado(AGLOMERADO)) %>%
   summarise(correlacion = cor(Acceso_computadoras, Uso_celular, use = "complete.obs"))
 
@@ -206,7 +191,7 @@ my_data,my_data2 %>%
 ```{r}
 library(dplyr)
 
-my_data;my_data2 %>%
+my_data%>%
   group_by(AGLOMERADO, Acceso_internet) %>%
   summarise(promedio_uso_computadora = mean(Uso_computadora, na.rm = TRUE),
             promedio_uso_celular = mean(Uso_celular, na.rm = TRUE))

@@ -1,0 +1,3 @@
+## Datos
+
+Los datos que hemos usado para este análisis provienen del indec. Corresponden a la encuesta permanente de hogares de Mayo de 2024.(@BasededatosTICS)
