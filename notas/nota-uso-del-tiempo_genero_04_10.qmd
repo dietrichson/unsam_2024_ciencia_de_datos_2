@@ -13,7 +13,7 @@ https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos-9
 
 Se bajaron los datos por linea de comando
 
-```{bash}
+```{r}
 #| eval: false
 wget https://www.indec.gob.ar/ftp/cuadros/menusuperior/enut/enut2021_base.zip
 ```
@@ -36,7 +36,7 @@ names(my_data)
 ## Variable "identidad de género"
 
 ```{r}
-my_data$BHCH06_SEL %>% table()
+my_data$BHCH06_SEL |> table()
 
 ```
 
@@ -52,57 +52,11 @@ nombrar_sexo <- function(SEXO_SEL){
 }
 ```
 
-## Variable "Región"
-
-```{r}
-# Nombrar regiones 
-nombrar_regiones <- function(REGION){
-           case_when(
-             region == 1 ~ "Gran Buenos Aires",
-             region == 2 ~ "Pampeana",
-             region == 3 ~ "Noroeste",
-             region == 4 ~ "Noreste",
-             region == 5 ~ "Cuyo",
-             region == 6 ~ "Patagonia",
-             .default = "No Encontrado")
-}
-
-```
-
-## Variable "Nivel Educativo"
-
-```{r}
-# Nombrar Nivel Educativo
-nombrar_nivel_educativo <- function(NIVEL_EDUCATIVO_AGRUPADO){
-           case_when(
-             NIVEL_EDUCATIVO_AGRUPADO == 1 ~ "Hasta primario incompleto",
-             NIVEL_EDUCATIVO_AGRUPADO == 2 ~ "Primario completo y secundario incompleto",
-             NIVEL_EDUCATIVO_AGRUPADO == 3 ~ "Secundario completo",
-             NIVEL_EDUCATIVO_AGRUPADO == 4 ~ "Terciario o universitario incompleto y más",
-             NIVEL_EDUCATIVO_AGRUPADO == 99 ~ "Ns/Nc",
-             .default = "No Encontrado")
-}
-
-```
-
-## Variable "Horas de trabajo semanales"
-
-```{r}
-# Nombrar las horas de trabajo semanales 
-nombrar_horas_trabajo <- function(BHSL08_SEL){
-           case_when(
-             BHSL08_SEL == 1 ~ "Menos de 35 hs",
-             BHSL08_SEL == 2 ~ "Entre 35 y 45 hs",
-             BHSL08_SEL == 3 ~ "Entre 46 y 50 hs",
-             BHSL08_SEL == 4 ~ "Más de 50 hs",
-             BHSL08_SEL == 99 ~ "Ns/Nc",
-             .default = "No Encontrado")
-}
-```
-
 ## Uso del tiempo según género
 
 ```{r}
+install.packages("dplyr")
+library(dplyr)
 temp_df <- my_data |>
   mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
   select(sexo, TCS_GRANGRUPO_TRABAJOTOTAL) |>
@@ -142,6 +96,8 @@ temp_df
 ```
 
 ```{r}
+install.packages("ggplot2")
+library(ggplot2)
  my_data |>
   mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
   select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
@@ -175,22 +131,91 @@ my_data |>
 ```
 
 ```{r}
-library(dplyr)
-
-my_data <- my_data %>% 
-  select(
-    ID,
-    SEXO_SEL,
-    EDAD_SEL,
-    REGION,
-    NIVEL_EDUCATIVO_AGRUPADO,
-    contains("GRANGRUPO")
-  )
+# GRÁFICO DE TAREAS PERSONALES
+temp_df_personales <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_PERSONALES) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_PERSONALES),
+    Mediana = median(TCS_GRANGRUPO_PERSONALES),
+    Desviacion = sd(TCS_GRANGRUPO_PERSONALES)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_personales)
 ```
 
-```{bash}
-temp_df <- temp_df |>
-  group_by(nombrar_regiones, TCS_GRANGRUPO_PERSONALES)
+```{r}
+# GRÁFICO DE TAREAS DOMÉSTICAS
+temp_df_domesticas <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRUPO_DOMESTICO) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRUPO_DOMESTICO),
+    Mediana = median(TCS_GRUPO_DOMESTICO),
+    Desviacion = sd(TCS_GRUPO_DOMESTICO)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_domesticas)
 ```
 
-`{)}`
+```{r}
+# GRÁFICO DE TAREAS CUIDADO
+temp_df_cuidado <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRUPO_CUIDADO) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRUPO_CUIDADO),
+    Mediana = median(TCS_GRUPO_CUIDADO),
+    Desviacion = sd(TCS_GRUPO_CUIDADO)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_cuidado)
+```
+
+```{r}
+# GRÁFICO DE TAREAS CUIDADO
+temp_df_voluntarias <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRUPO_VOLUNTARIAS) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRUPO_VOLUNTARIAS),
+    Mediana = median(TCS_GRUPO_VOLUNTARIAS),
+    Desviacion = sd(TCS_GRUPO_VOLUNTARIAS)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_voluntarias)
+```
+
+```{r}
+# GRÁFICO DORMIR
+temp_df_dormir <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_ACT_DORMIR) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_ACT_DORMIR),
+    Mediana = median(TCS_ACT_DORMIR),
+    Desviacion = sd(TCS_ACT_DORMIR)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+print(temp_df_dormir)
+```

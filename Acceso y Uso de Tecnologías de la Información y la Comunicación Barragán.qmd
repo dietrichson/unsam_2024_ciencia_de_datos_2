@@ -5,6 +5,42 @@ format: html
 editor: visual
 ---
 
+## Introducción
+
+En el presente libro se llevara a cabo un análisis cuantitativo referido al vinculo entre por un lado, en base a los datos recogidos de los hogares, el acceso a los dispositivos asi como el acceso a internet. Por otro lado, se analiza en base a los datos recogidos de las personas, el uso de interntet, computaodras y celulares.Para tal proposito, se utilizaran datos del Instituto Nacional de Estadística y Censos (INDEC)().
+
+## Datos
+
+Los datos que hemos usado para este análisis provienen del indec. Corresponden a la encuesta permanente de hogares de Mayo de 2024.
+
+## Variables
+
+Las variables que se utilizaran son "Tiene computadora"(Computadoras) y "Tiene acceso a internet"(Tiene_internet) en el caso de la Base hogar.
+
+En el caso de la Base de las Personas, "Uso internet" (Uso_internet), "Uso computadora" (Uso_computadora) y "Uso celular" (Uso\_ celular) .
+
+Todas estas variables seran emparentadas con la variable de regiones(AGLOMERADO).
+
+## Preguntas de investigación
+
+A partir de estas variables, podemos planteae las siguientes pregunras de investigacion:
+
+-   ¿Existen diferencias significativas en el acceso a computadoras entre las diferentes regiones de Argentina?
+
+-   ¿Cómo varía el acceso a internet entre las diferentes regiones de Argentina?
+
+-   ¿El uso de internet está asociado con el nivel de acceso a computadoras en las distintas regiones de Argentina?
+
+-   ¿Qué región de Argentina muestra mayor uso de celulares para acceder a internet?
+
+-   ¿Existen diferencias en el uso de computadoras entre las distintas regiones de Argentina, considerando el acceso a internet?
+
+-   ¿Cuál es la relación entre la disponibilidad de computadoras y el uso de celulares en distintas regiones de Argentina?
+
+-   ¿El acceso a internet afecta de manera desigual el uso de tecnología (computadoras, celulares) en diferentes regiones de Argentina?
+
+## Procedimiento
+
 ```{r}
 #| include: false
 library(tidyverse)
@@ -12,113 +48,152 @@ library(tidyverse)
 
 ```{r}
 #| include: false
-library(readr)
+library(tidyverse)
+source(here::here("R/nombraraglomerado.R"))
 my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+temp_df<- my_data |>
+  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))|>
+  filter(IH_II_01<=2)|>
+  filter(IH_II_02<=2)|>
+  mutate(Computadoras=ifelse(IH_II_01==1,"Si","No"))|>
+  mutate(Acceso_internet=ifelse(IH_II_02    ==1,"Si","No"))
+ # mutate(Computadoras = IH_II_01)|>
+  #mutate( Acceso_internet = IH_II_02)
 ```
 
 ```{r}
 #| include: false
-library(readr)
 my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+temp_df2<- my_data2 |>
+  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))|>
+filter(IP_III_04<=2)|>
+  filter(IP_III_05<=2)|>
+filter(IP_III_06<=2)|>
+mutate(Uso_internet=ifelse(IP_III_04==1,"Si","No"))|>
+  mutate(Uso_computadora=ifelse(IP_III_05==1,"Si","No"))|>
+mutate(Uso_celular=ifelse(IP_III_06==1,"Si","No"))
+  #mutate( Uso_internet = IP_III_04)|>
+  #mutate( Uso_computadora = IP_III_05)|>
+  #mutate(Uso_celular=IP_III_06)
+
+```
+
+
+## Análisis descriptivo
+
+### Base Hogar
+
+```{r}
+#| label: tbl-computadora-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de computadoras por aglomerado"
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Computadoras=="Si"),
+    No=sum(Computadoras=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
 ```{r}
-#| include: false
-temp_df <- my_data |> 
-  select(CODUSU,NRO_HOGAR, AGLOMERADO,POND_TIC,IH_II_01,COMPONENTE,IP_III_04,IP_III_05,IP_III_06)
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Acceso_internet=="Si"),
+    No=sum(Acceso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+
+### 
+
+### 
+
+### Base individuos
+
+```{r}
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_internet=="Si"),
+    No=sum(Uso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
 ```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Hogar_vivienda = "CODUSU")
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_computadora=="Si"),
+    No=sum(Uso_computadora=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
 ```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Numero_hogar = "NRO_HOGAR")
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_celular=="Si"),
+    No=sum(Uso_celular=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
 ```
 
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Ponderacion_de_no_respuesta_tic = "POND_TIC")
-```
+¿El uso de internet está asociado con el nivel de acceso a computadoras en las distintas regiones de Argentina?
 
 ```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Computadoras = "IH_II_01")
+my_data3<-my_data%>%
+  left_join(my_data2,by = c("CODUSU","AGLOMERADO"))
+
 ```
 
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Acceso_internet = "IH_II_02")
-```
+-   ¿Qué región de Argentina muestra mayor uso de celulares para acceder a internet?
 
 ```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Rol_hogar = "COMPONENTE")
+library(dplyr)
+
+my_data2 %>%
+  group_by(AGLOMERADO) %>%
+  summarise(uso_celular = mean(Uso_celular, na.rm = TRUE)) %>%
+  arrange(desc(uso_celular)) %>%
+  slice(1)
+
 ```
 
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Uso_internet = "IP_III_04")
-```
+-   ¿Existen diferencias en el uso de computadoras entre las distintas regiones de Argentina, considerando el acceso a internet?
 
 ```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Uso_computadora = "IP_III_05")
+library(dplyr)
+
+my_data %>%
+  group_by(nombrar_aglomerado(AGLOMERADO), Acceso_internet) %>%
+  summarise(Uso_computadora = mean(Uso_computadora, na.rm = TRUE)) %>%
+  arrange(desc(Uso_computadora))
+
 ```
 
-```{r}
-#| include: false
-temp_df <- temp_df |> 
-  mutate (Uso_celular = "IP_III_06")
-```
+-   ¿Cuál es la relación entre la disponibilidad de computadoras y el uso de celulares en distintas regiones de Argentina?
 
 ```{r}
-temp_df <- my_data |>
-  select(AGLOMERADO) |>
-  mutate(
-    AGLOMERADO = case_when(
-      AGLOMERADO == 02 ~ "BUENOS AIRES",
-      AGLOMERADO == 03 ~ "BUENOS AIRES",
-      AGLOMERADO == 04 ~ "LITORAL",
-      AGLOMERADO == 05 ~ "LITORAL",
-      AGLOMERADO == 06 ~ "LITORAL",
-      AGLOMERADO == 07 ~ "LITORAL",
-      AGLOMERADO == 08 ~ "LITORAL",
-      AGLOMERADO == 09 ~ "PATAGONIA",
-      AGLOMERADO == 10 ~ "CUYO",
-      AGLOMERADO == 12 ~ "LITORAL",
-      AGLOMERADO == 13 ~ "NOROESTE",
-      AGLOMERADO == 14 ~ "LITORAL",
-      AGLOMERADO == 15 ~ "LITORAL",
-      AGLOMERADO == 17 ~ "PATAGONIA",
-      AGLOMERADO == 18 ~ "NOROESTE",
-      AGLOMERADO == 19 ~ "NOROESTE",
-      AGLOMERADO == 20 ~ "PATAGONIA",
-      AGLOMERADO == 22 ~ "NOROESTE",
-      AGLOMERADO == 23 ~ "NOROESTE",
-      AGLOMERADO == 25 ~ "NOROESTE",
-      AGLOMERADO == 26 ~ "CUYO",
-      AGLOMERADO == 27 ~ "CUYO",
-      AGLOMERADO == 29 ~ "NOROESTE",
-      AGLOMERADO == 30 ~ "PAMPEANA",
-      AGLOMERADO == 31 ~ "PATAGONIA",
-      AGLOMERADO == 32 ~ "BUENOS AIRES",
-      AGLOMERADO == 33 ~ "BUENOS AIRES",
-      AGLOMERADO == 34 ~ "BUENOS AIRES",
-      AGLOMERADO == 36 ~ "CENTRO",
-      AGLOMERADO == 38 ~ "LITORAL",
-      AGLOMERADO == 91 ~ "PATAGONIA",
-      AGLOMERADO == 93 ~ "PATAGONIA",
-      TRUE ~ "No Encontrado"
-    )
+library(dplyr)
+
+my_data%>%
+  group_by(nombrar_aglomerado(AGLOMERADO)) %>%
+  summarise(correlacion = cor(Acceso_computadoras, Uso_celular, use = "complete.obs"))
+
+```
+
+-   ¿El acceso a internet afecta de manera desigual el uso de tecnología (computadoras, celulares) en diferentes regiones de Argentina?
+
+```{r}
+library(dplyr)
+
+my_data%>%
+  group_by(AGLOMERADO, Acceso_internet) %>%
+  summarise(promedio_uso_computadora = mean(Uso_computadora, na.rm = TRUE),
+            promedio_uso_celular = mean(Uso_celular, na.rm = TRUE))
+
 ```

@@ -1,0 +1,119 @@
+
+## Análisis descriptivo
+
+### Base Hogar
+
+```{r}
+#| label: tbl-computadora-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de computadoras por aglomerado"
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Computadoras=="Si"),
+    No=sum(Computadoras=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+
+```{r}
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Acceso_internet=="Si"),
+    No=sum(Acceso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+
+### 
+
+###Base individuos
+
+```{r}
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_internet=="Si"),
+    No=sum(Uso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+
+```{r}
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_computadora=="Si"),
+    No=sum(Uso_computadora=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+
+```{r}
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_celular=="Si"),
+    No=sum(Uso_celular=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+¿El uso de internet está asociado con el nivel de acceso a computadoras en las distintas regiones de Argentina?
+
+```{r}
+my_data3<-my_data%>%
+  left_join(my_data2,by = c("CODUSU","AGLOMERADO"))
+
+```
+
+-   ¿Qué región de Argentina muestra mayor uso de celulares para acceder a internet?
+
+```{r}
+library(dplyr)
+
+my_data2 %>%
+  group_by(AGLOMERADO) %>%
+  summarise(uso_celular = mean(Uso_celular, na.rm = TRUE)) %>%
+  arrange(desc(uso_celular)) %>%
+  slice(1)
+
+```
+
+-   ¿Existen diferencias en el uso de computadoras entre las distintas regiones de Argentina, considerando el acceso a internet?
+
+```{r}
+library(dplyr)
+
+my_data %>%
+  group_by(nombrar_aglomerado(AGLOMERADO), Acceso_internet) %>%
+  summarise(Uso_computadora = mean(Uso_computadora, na.rm = TRUE)) %>%
+  arrange(desc(Uso_computadora))
+
+```
+
+-   ¿Cuál es la relación entre la disponibilidad de computadoras y el uso de celulares en distintas regiones de Argentina?
+
+```{r}
+library(dplyr)
+
+my_data%>%
+  group_by(nombrar_aglomerado(AGLOMERADO)) %>%
+  summarise(correlacion = cor(Acceso_computadoras, Uso_celular, use = "complete.obs"))
+
+```
+
+-   ¿El acceso a internet afecta de manera desigual el uso de tecnología (computadoras, celulares) en diferentes regiones de Argentina?
+
+```{r}
+library(dplyr)
+
+my_data%>%
+  group_by(AGLOMERADO, Acceso_internet) %>%
+  summarise(promedio_uso_computadora = mean(Uso_computadora, na.rm = TRUE),
+            promedio_uso_celular = mean(Uso_celular, na.rm = TRUE))
+
+```
+
+
+

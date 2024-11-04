@@ -1,0 +1,46 @@
+---
+title: "Tablas con Knitr"
+author: "Sasha"
+format: html
+editor: visual
+---
+
+## Datos
+
+```{r}
+#| include: false
+library(tidyverse)
+source(here::here("R/nombraraglomerado.R"))
+my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+temp_df<- my_data |>
+  mutate(AGLOMERADO = nombrar_AGLOMERADO(AGLOMERADO))|>
+  mutate(Computadoras = IH_II_01)
+
+```
+
+## Tabla
+
+En la tabla @tbl-computadora-por-aglomerado vemos las diferencias...
+
+```{r}
+#| label: tbl-computadora-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de computadoras por aglomerado"
+
+table(temp_df$AGLOMERADO, temp_df$Computadoras) 
+
+```
+
+En @tbl-ejemplo-2 vemos una tabla un poco mas sofisticada
+
+```{r}
+#| label: tbl-ejemplo-2
+#| echo: false
+#| tbl-cap: "Numero de computadoras por aglomerado"
+temp_df <- temp_df |>
+  filter(Computadoras %in% c(1,2))
+
+table(temp_df$AGLOMERADO, temp_df$Computadoras) |>
+  knitr::kable( col.names = list("Aglomerado","Si","No"))
+
+```

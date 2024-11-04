@@ -1,0 +1,31 @@
+---
+title: "Variables"
+format: html
+editor: visual
+---
+
+## Variables utilizadas en el libro
+
+SEXO_SEL: Cuál es el sexo asignado al nacer? Mujer o varón.
+
+REGION: La región de residencia de la persona encuestada, divido en las 6 regiones de Argentina: Gran Buenos Aires, Cuyo, Noroeste, Noreste, Pampeana y Patagonia.
+
+Región Gran Buenos Aires: Ciudad Autónoma de Buenos Aires y partidos del Gran Buenos Aires. -
+
+Región Cuyo: Gran Mendoza, Gran San Juan, Gran San Luis, Villa Mercedes y San Rafael.
+
+Región Noreste (NEA): Corrientes, Formosa, Gran Resistencia y Posadas.
+
+Región Noroeste (NOA): Gran Catamarca, Gran Tucumán-Tafí Viejo, San Salvador de Jujuy- Palpalá, La Rioja, Salta y Santiago del Estero-La Banda.
+
+Región Pampeana: Bahía Blanca-Cerri, Carmen de Patagones, Concordia, Gran Córdoba, Gran La Plata, Gran Rosario, Gran Paraná, Gran Santa Fe, Mar del Plata, Río Cuarto, Santa Rosa-Toay, San Nicolás-Villa Constitución y Tandil.
+
+Región Patagonia: Comodoro Rivadavia-Rada Tilly, Neuquén-Plottier, Río Gallegos, Ushuaia-Río Grande, Rawson-Trelew, Viedma y San Carlos de Bariloche.
+
+TCS_GRUPO_DOMESTICO: Trabajo doméstico no remunerado. Incluye: Preparar y servir la comida, Limpiar la vivienda, Lavar, planchar o arreglar la ropa/calzado, Reparar y mantener la vivienda o los bienes del hogar, Hacer pagos y trámites del hogar, Hacer compras para el hogar, Cuidar mascotas y plantas.
+
+TCS_ACT_TRABAJOOCUPACION: Actividad de Trabajo en la ocupación. Son las actividades laborales en la producción de bienes y servicios, a cambio de remuneración o beneficios.
+
+TCS_ACT_DORMIR: Actividad de Dormir
+
+TCS_ACT_DEPORTE: Actividad Hacer deporte y ejercicio físico
