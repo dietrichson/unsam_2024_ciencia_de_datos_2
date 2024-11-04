@@ -12,6 +12,15 @@ my_data <- readr::read_rds(here::here("data/datos-sube.rds"))
 my_data <- my_data %>% 
   mutate(AÑO = lubridate::year(DIA))
 
+my_data %>% filter(AÑO == '2024') %>% head()
+```
+
+```{r}
+my_data <- my_data %>% 
+  filter(!is.na(SUBSIDIO), 
+         SUBSIDIO != "OTRO") %>% 
+  mutate(MES = lubridate::month(DIA))
+
 my_data %>% head()
 ```
 
@@ -19,26 +28,29 @@ my_data %>% head()
 my_summary_by_year <- my_data %>% 
   group_by(AÑO, SUBSIDIO) %>% 
   summarize(
-    Pasajes = sum(CANT_TRJ)
+    Pasajes = sum(CANT_TRJ),
+    .groups = "drop"
   ) 
 ```
 
 ```{r}
-my_summary_by_year %>% 
-  ggplot(aes(AÑO, Pasajes, fill = SUBSIDIO))+
-  geom_col()+
-  theme(legend.position  = "bottom")
+my_summary_by_year <- my_data %>% 
+  group_by(AÑO, SUBSIDIO) %>% 
+  summarize(
+    Pasajes = sum(CANT_TRJ),
+    .groups = "drop"
+  ) 
 ```
 
-Como no se ve podemos filtrar:
+Como no se ve podemos filtrar:///
 
 ```{r}
-my_summary_by_year %>% 
-  filter(!is.na(SUBSIDIO), 
-         SUBSIDIO != "OTRO") %>% 
-  ggplot(aes(AÑO, Pasajes, fill = SUBSIDIO))+
-  geom_col()+
-  theme(legend.position  = "bottom")
+my_summary_by_year <- my_data %>% 
+  group_by(AÑO, SUBSIDIO) %>% 
+  summarize(
+    Pasajes = sum(CANT_TRJ),
+    .groups = "drop"
+  ) 
 ```
 
 ```{r}
