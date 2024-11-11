@@ -1,7 +1,13 @@
 
 ## Análisis descriptivo
 
+
 ### Base Hogar
+```{r}
+#include:false
+library(tidyverse)
+```
+
 
 ```{r}
 #| label: tbl-computadora-por-aglomerado

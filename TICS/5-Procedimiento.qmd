@@ -1,4 +1,4 @@
-##Procedimiento
+##Procedimiento Como primer paso, se realizará la carga de @tidyvers,para el manejo de datos. Luego se utilizara source para cargar una función que se encuentra en el archivo "nombrar aglomerado" para facilitar el desarrollo de los código cuando se requiera utilizar la variable "aglomerado". También, se cargaran las bases de datos correspondientes (base individualy base hogar) y se modificará los nombres de las variables para una mejor identificación a la hora de realizar tablas para el análisis del trabajo.
 
 ```{r}
 #| include: false
@@ -16,8 +16,7 @@ temp_df<- my_data |>
   filter(IH_II_02<=2)|>
   mutate(Computadoras=ifelse(IH_II_01==1,"Si","No"))|>
   mutate(Acceso_internet=ifelse(IH_II_02    ==1,"Si","No"))
- # mutate(Computadoras = IH_II_01)|>
-  #mutate( Acceso_internet = IH_II_02)
+
 ```
 
 ```{r}
@@ -31,8 +30,5 @@ filter(IP_III_06<=2)|>
 mutate(Uso_internet=ifelse(IP_III_04==1,"Si","No"))|>
   mutate(Uso_computadora=ifelse(IP_III_05==1,"Si","No"))|>
 mutate(Uso_celular=ifelse(IP_III_06==1,"Si","No"))
-  #mutate( Uso_internet = IP_III_04)|>
-  #mutate( Uso_computadora = IP_III_05)|>
-  #mutate(Uso_celular=IP_III_06)
-
+  
 ```
