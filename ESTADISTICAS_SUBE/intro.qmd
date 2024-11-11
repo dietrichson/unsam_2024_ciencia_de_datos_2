@@ -1,3 +1,75 @@
-# Introduction
+## Introducción
 
-En esta investigación se busca analizar el proceso de evolución e involución que tuvieron los subsidios que se registran en las tarjetas de transporte SUBE. Para ello, se identificaron las siguientes ayudas sociales: AUH, Pensiones, Jubilación, Monotributo Social, Progresar y Personal de Trabajo Doméstico.
+En esta investigación se busca analizar el proceso de evolución e involución que tuvieron los subsidios que se registran en las tarjetas de transporte SUBE durante un periodo determinado que incluye los años 2020, 2021, 2022, 2023 y 2024. Para ello, se identificaron las siguientes ayudas sociales: AUH, Pensiones, Jubilación, Monotributo Social, Progresar y Personal de Trabajo Doméstico. A partir de la selección del periodo, se extrajeron los datos de la página de la Secretaría de Transporte del Ministerio de Economía.
+
+## Cantidad de tarjetas registradas con Subsidios
+
+En este grafico se puede visualizar la cantidad de tarjetas unicas que realizaron viajes por día en cada transporte. De forma mas detallada, tambien se registran los movimientos hechos fuera del limite del AMBA, como los que se realizan dentro de los límites del AMBA. Y siguiendo con esta clasificacion principal, en el segundo gráfico, la tabla nos muestra los movimientos realizados por tarjetas registradas que poseen algun tipo de Subsidio (Ayuda Social), en la cual se diferencia el genero con el proposito de visualizar la insidencia que que tienen estas ayudas tanto en hombres como en mujeres.
+
+Teniendo en cuenta los datos devueltos, una de las primeras obsevaciones que se desprende, es que las tarjetas asignadas a mujeres duplican (y en algunos casos es casi exclusiva como con la AUH) en casi todas las categorias a las otorgadas a los hombres. Por otro lado, como algunos de estos subsidios fueron desarrollados como parte de políticas públicas destinadas a la proteccion social del arco mas vulnerable de la sociedad, es decir, a los niños a traves de sus madres, a jóvenes estudiantes y los adultos mayores. Podemos comprobar que efectivamente estas políticas han dado resultado o han cumplido con su objetivo.
+
+```{r}
+#| include: false
+ library(tidyverse)
+
+
+```
+
+```{r}
+#| echo: false
+
+
+my_data <- readr::read_rds(here::here("data/datos-sube.rds"))
+
+my_data <- my_data %>% 
+  mutate(AÑO = lubridate::year(DIA))
+
+my_data 
+```
+
+```{r}
+#| echo: false
+
+my_data <- my_data %>% 
+  filter(!is.na(SUBSIDIO), 
+         SUBSIDIO != "OTRO") %>% 
+  mutate(MES = lubridate::month(DIA))
+
+my_data %>% head()
+```
+
+### Variaciones anuales de los subsidios
+
+En este grafico se pueden visualizar las columnas, correspondientes a cada año del periodo seleccionado para el analisis, los cuales se encuentran en linea orizontal en la parte inferior de las columnas. En linea vertical se puede leer la cantidad de tarjetas correpondientes a cada asiganacion de subsidio, diferenciado por colores. De este modo, logramos distinguir a grandes rasgos la progresión de cada uno de los subsidios asiganados.
+
+```{r}
+#| echo: false
+
+my_summary_by_year <- my_data %>% 
+  group_by(AÑO, SUBSIDIO) %>% 
+  summarize(
+    Pasajes = sum(CANT_TRJ),
+    .groups = "drop"
+  ) 
+```
+
+```{r}
+#| echo: false
+
+my_summary_by_year_2 <- my_summary_by_year %>% 
+  filter(!is.na(SUBSIDIO), SUBSIDIO != "OTRO")
+
+my_summary_3 <- my_summary_by_year_2 %>% 
+  group_by(AÑO) %>% 
+  summarize(
+    TOTAL = sum(Pasajes)
+  ) %>% 
+  left_join(my_summary_by_year_2) %>% 
+  mutate(Relativo = Pasajes/TOTAL) 
+
+
+my_summary_3 %>% 
+  ggplot(aes(AÑO, Relativo, fill = SUBSIDIO))+
+  geom_col()+
+  theme(legend.position  = "bottom")
+```

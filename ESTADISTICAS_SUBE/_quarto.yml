@@ -8,7 +8,7 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - capitulo-sube-datos.qmd
+    - Capitulo-1.qmd
     - summary.qmd
     - references.qmd
 
