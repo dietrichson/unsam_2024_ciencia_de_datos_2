@@ -1,9 +1,0 @@
-El siguiente trabajo es un proyecto final para la materia Comunicación y Ciencia de datos 2, dilatada por el profesor Aleksander Dietrichson durante el segundo cuatrimestre del ciclo lectivo 2024. Dicho proyecto se dividirá de la siguiente manera:
-
-    -1-Introducción.qmd 
-    - 2-Datos.qmd  
-    -3-Variables.qmd
-    - 4-Preguntas_ de_ investigación.qmd
-    -5-Procedimiento.qmd
-    - 6-Análisis_ descriptivo.qmd
-    -7-references.qmd

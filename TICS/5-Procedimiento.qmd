@@ -16,7 +16,7 @@ temp_df<- my_data |>
   filter(IH_II_02<=2)|>
   mutate(Computadoras=ifelse(IH_II_01==1,"Si","No"))|>
   mutate(Acceso_internet=ifelse(IH_II_02    ==1,"Si","No"))
-
+readr::write_rds(temp_df,"temp_df.rds")
 ```
 
 ```{r}
@@ -30,5 +30,5 @@ filter(IP_III_06<=2)|>
 mutate(Uso_internet=ifelse(IP_III_04==1,"Si","No"))|>
   mutate(Uso_computadora=ifelse(IP_III_05==1,"Si","No"))|>
 mutate(Uso_celular=ifelse(IP_III_06==1,"Si","No"))
-  
+  readr::write_rds(temp_df2,"temp_df2.rds")
 ```

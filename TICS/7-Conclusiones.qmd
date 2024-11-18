@@ -1,0 +1,43 @@
+1) ¿Existen diferencias significativas en el acceso a computadoras entre las diferentes regiones de Argentina?
+
+Sí, existen diferencias significativas. El acceso a computadoras varía entre regiones:  
+- Patagonia tiene la mayor proporción de acceso (66.2%).  
+- Pampeana tiene la menor proporción (50.7%).  
+Esto implica una brecha regional notable, con un rango de acceso que oscila entre 50.7% y 66.2%.
+
+ 2) ¿Cómo varía el acceso a internet entre las diferentes regiones de Argentina?
+
+El acceso a internet es alto en todas las regiones, con variaciones mínimas:  
+- Centro lidera con un 95.0% de acceso.  
+- Pampeana presenta el menor acceso, con un 88.5%.  
+En general, el acceso a internet es amplio, con un rango entre 88.5% y 95.0%, lo que refleja una cobertura uniforme.
+
+ 3)¿El uso de internet está asociado con el nivel de acceso a computadoras en las distintas regiones de Argentina?
+
+No completamente. Aunque el acceso a computadoras es más bajo (50%-66%) que el acceso a internet (88%-95%), el uso de internet sigue siendo alto en todas las regiones. Por ejemplo, la Patagonia tiene la mayor proporción de uso de computadoras (48.7%) y también lidera en uso de internet (92.7%). Sin embargo, en regiones como la región Pampeana, con el menor acceso a computadoras (50.7%), el uso de internet sigue siendo alto (84.5%). Esto sugiere que el acceso a internet no depende exclusivamente del acceso a computadoras y podría estar impulsado por otros dispositivos como celulares.
+
+ 4) ¿Qué región de Argentina muestra mayor uso de celulares para acceder a internet?
+
+No hay datos específicos sobre el uso de celulares para acceder a internet en la información presentada, pero la Patagonia, con el mayor porcentaje de uso de celulares en general (94.06%) y de acceso a internet (94.1%), probablemente tenga un alto uso de celulares para navegar en línea.
+
+5) ¿Existen diferencias en el uso de computadoras entre las distintas regiones de Argentina, considerando el acceso a internet?
+
+Sí, hay diferencias. A pesar de un acceso uniforme a internet:  
+- El uso de computadoras es mucho más bajo que el acceso a internet en todas las regiones, con un rango entre 32.8% (Pampeana) y 48.7% (Patagonia).  
+Esto sugiere que aunque las personas tienen internet, optan por otros dispositivos, como celulares, para conectarse.
+
+ 6) ¿Cuál es la relación entre la disponibilidad de computadoras y el uso de celulares en distintas regiones de Argentina?
+
+Hay una relación inversa en algunas regiones. Por ejemplo:  
+- la región Pampeana tiene el menor acceso a computadoras (50.7%) y el menor uso de computadoras (32.8%), pero presenta un alto uso de celulares (91.29%).  
+- la Patagonia tiene el mayor acceso a computadoras (66.2%) y el mayor uso de computadoras (48.7%), con el mayor uso de celulares (94.06%).  
+Esto indica que en regiones con menor acceso a computadoras, el celular se convierte en el dispositivo principal para acceder a la tecnología.
+
+ 7) ¿El acceso a internet afecta de manera desigual el uso de tecnología (computadoras, celulares) en diferentes regiones de Argentina?
+
+Sí, el acceso a internet afecta de forma desigual.  
+- En todas las regiones, el uso de celulares es más alto que el de computadoras, independientemente del acceso a internet.  
+- En regiones como la región Pampeana y el Litoral, donde el acceso a internet es más bajo, el uso de celulares compensa la falta de uso de computadoras.  
+- Esto indica que el celular es el dispositivo preferido para conectarse, incluso en regiones con un acceso limitado a computadoras.  
+
+En resumen, el acceso a internet impulsa el uso de tecnología, pero las computadoras no son el dispositivo principal en la mayoría de las regiones; el celular tiene un rol predominante.
