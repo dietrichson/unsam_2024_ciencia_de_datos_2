@@ -1,0 +1,7 @@
+# Introducción
+
+Este libro se propone analizar el uso del tiempo en Argentina, tomando como base los datos de la Encuesta Nacional sobre el Uso del Tiempo (ENUT) 2021. En todos los casos, el análisis se centrará en el tiempo dedicado a distintas actividades en un día, medido en minutos, y su relación con la edad de las personas. El objetivo es identificar patrones y desigualdades en la distribución del tiempo entre distintos grupos de la población, considerando variables como el sexo y la región.
+
+El primer capítulo abordará el tiempo dedicado a las tareas domésticas, examinando cómo se distribuye esta carga a lo largo de la vida y las diferencias entre géneros y regiones. En el segundo capítulo, se analizará el trabajo remunerado, explorando las variaciones en el tiempo de dedicación según el género y el contexto geográfico. Finalmente, el tercer capítulo se centrará en actividades relacionadas con la salud y el bienestar, tomando dos variables fundamentales: dormir y hacer deporte. Estas actividades se analizarán como indicadores del tiempo destinado al cuidado personal.
+
+A lo largo del libro, los gráficos serán una herramienta clave para visualizar las tendencias y resaltar las diferencias en la manera en que se distribuye el tiempo en la sociedad argentina, proporcionando una visión integral sobre cómo distintos grupos gestionan su tiempo en función de sus características demográficas y de género.
