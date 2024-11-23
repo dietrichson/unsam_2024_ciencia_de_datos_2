@@ -60,7 +60,7 @@ my_data |>
 
 ```
 
-A partir del análisis del tiempo dedicado a las tareas domésticas según la edad y el sexo, basado en los datos de la ENUT 2021, se observan claras diferencias de género a lo largo de toda la vida, desde los 15 hasta casi 100 años. Como se muestra en @fig-fig-domesticas-genero, las mujeres dedican consistentemente más tiempo que los hombres a las tareas domésticas, y esta desigualdad comienza desde edades tempranas.
+A partir del análisis del tiempo dedicado a las tareas domésticas según la edad y el sexo, basado en los datos de la ENUT 2021, se observan claras diferencias de género a lo largo de toda la vida, desde los 15 hasta casi 100 años. Como se muestra en la figura, las mujeres dedican consistentemente más tiempo que los hombres a las tareas domésticas, y esta desigualdad comienza desde edades tempranas.
 
 La brecha en el tiempo destinado a estas actividades se amplía considerablemente durante la etapa adulta, especialmente entre los 30 y 60 años. Este período coincide con la fase en la que muchas mujeres asumen múltiples responsabilidades, como el cuidado de los hijos, el trabajo remunerado y las tareas del hogar. La mayor diferencia en el tiempo dedicado a las tareas domésticas durante estas décadas muestra todavía los roles de género tradicionales, donde se espera que las mujeres asuman una mayor carga en el ámbito doméstico.
 
