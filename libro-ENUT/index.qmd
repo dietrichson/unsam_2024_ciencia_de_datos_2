@@ -1,5 +1,10 @@
-# Preface {.unnumbered}
+# Portada {.unnumbered}
 
-This is a Quarto book.
+Este es un libro sobre el análisis del uso del tiempo en Argentina a partir de la Encuesta Nacional sobre el Uso del Tiempo 2021, realizada por el Instituto Nacional de Estadística y Censos (INDEC). 
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+- Introducción
+- Capítulo 1: La distribución del tiempo en las tareas domésticas
+- Capítulo 2: La distribución del tiempo en las tareas de Trabajo remunerado
+- Capítulo 3: La distribución del tiempo en las tareas de bienestar y salud
+- Conclusiones
+- Referencias

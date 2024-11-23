@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-## Conclusiones
-
 El análisis realizado sobre el uso del tiempo en Argentina, basado en los datos de la ENUT 2021, permite identificar patrones y desigualdades en función del sexo y la región en tres áreas fundamentales de la vida cotidiana: las tareas domésticas, el trabajo remunerado y las actividades de bienestar y salud.
 
 Los resultados evidencian cómo factores como el género y el lugar de residencia condicionan la forma en que distintos grupos poblacionales gestionan el tiempo.

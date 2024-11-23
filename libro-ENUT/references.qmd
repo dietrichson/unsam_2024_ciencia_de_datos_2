@@ -1,4 +1,3 @@
 # References {.unnumbered}
 
-::: {#refs}
-:::
+Encuesta Nacional de Uso del Tiempo 2021 (2021). Instituto Nacional de Estadísticas y Censos. https://www.indec.gob.ar/

@@ -20,15 +20,16 @@ A lo largo de la historia, los roles de género han influenciado la participaci�
 #| include: false
 library(ggplot2)
 library(tidyverse)
+library(here)
 my_data <- readr::read_delim(here::here("datos-crudos/enut2021_base.txt"), delim = "|")
-head(my_data)
 source(here::here("R/nombrar-sexo.R"))
+source(here::here("R/nombrar-regiones.R"))
 ```
 
 ```{r}
 #| echo: false
 #| message: false
-#| fig.cap: "Figura 2.1: Tiempo promedio dedicado al trabajo remunerado por género"
+#| fig.cap: "Tiempo promedio dedicado al trabajo remunerado por género"
 my_data |>
   mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
   select(sexo, EDAD_SEL, TCS_ACT_TRABAJOOCUPACION) |>
@@ -43,8 +44,7 @@ my_data |>
   geom_smooth() +
   scale_x_continuous(breaks = seq(0, 100, by = 10)) +
   xlab("Edad") +
-  ylab("Tiempo (en minutos)") +
-  ggtitle("Trabajo remunerado por género")
+  ylab("Tiempo (en minutos)")
 ```
 
 El análisis del tiempo dedicado al trabajo remunerado según el género muestra una clara tendencia: en prácticamente todos los años de la vida, los hombres destinan más tiempo a esta actividad que las mujeres. Esta diferencia es evidente desde la juventud y persiste hasta la vejez, reflejando las desigualdades de género en el acceso y la participación en el mercado laboral. Sin embargo, después de los 90 años, la brecha se reduce considerablemente, e incluso se observa que las diferencias desaparecen, lo que puede deberse a la disminución general de la actividad laboral en edades avanzadas para ambos géneros.
@@ -56,7 +56,7 @@ Estos resultados sugieren la persistencia de un modelo tradicional de división 
 ```{r}
 #| echo: false
 #| message: false
-#| fig.cap: "Figura 2.2: Tiempo promedio dedicado al trabajo remunerado por región"
+#| fig.cap: "Tiempo promedio dedicado al trabajo remunerado por región"
 my_data |>
   mutate(Región = nombrar_regiones(REGION)) |>
   select(Región, EDAD_SEL, TCS_ACT_TRABAJOOCUPACION) |>
@@ -71,8 +71,7 @@ my_data |>
   geom_smooth() +
   scale_x_continuous(breaks = seq(0, 100, by = 10)) +
   xlab("Edad") +
-  ylab("Tiempo (en minutos)") +
-  ggtitle("Trabajo remunerado por región")
+  ylab("Tiempo (en minutos)")
 ```
 
 El análisis del tiempo dedicado al trabajo remunerado según la región muestra que no existen diferencias extremadamente significativas entre las distintas zonas del país. Sin embargo, se observan algunas tendencias particulares: el Noroeste presenta niveles más bajos de tiempo dedicado al trabajo remunerado en comparación con el resto de las regiones, mientras que Cuyo destaca con una mayor dedicación.
