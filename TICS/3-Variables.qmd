@@ -1,4 +1,4 @@
-## Variables
+# Variables
 
 Las variables que se utilizaran son "Tiene computadora"(Computadoras) y "Tiene acceso a internet"(Tiene_internet) en el caso de la Base hogar.
 

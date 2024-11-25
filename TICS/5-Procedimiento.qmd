@@ -1,4 +1,5 @@
-##Procedimiento Como primer paso, se realizará la carga de @tidyvers,para el manejo de datos. Luego se utilizara source para cargar una función que se encuentra en el archivo "nombrar aglomerado" para facilitar el desarrollo de los código cuando se requiera utilizar la variable "aglomerado". También, se cargaran las bases de datos correspondientes (base individualy base hogar) y se modificará los nombres de las variables para una mejor identificación a la hora de realizar tablas para el análisis del trabajo.
+# Procedimiento
+Como primer paso, se realizará la carga de @tidyverse,para el manejo de datos. Luego se utilizara source para cargar una función que se encuentra en el archivo "nombrar aglomerado" para facilitar el desarrollo de los código cuando se requiera utilizar la variable "aglomerado". También, se cargaran las bases de datos correspondientes (base individualy base hogar) y se modificará los nombres de las variables para una mejor identificación a la hora de realizar tablas para el análisis del trabajo.
 
 ```{r}
 #| include: false

@@ -1,16 +1,16 @@
-## Análisis descriptivo
+# Análisis descriptivo
 
-### Base Hogar
+## Base Hogar
 
 ```{r}
-#include:false
+#| include: false
 library(tidyverse)
 ```
 
 ```{r}
 #| label: tbl-computadora-por-aglomerado
 #| echo: false
-#| tbl-cap: "Numero de computadoras por aglomerado
+#| tbl-cap: "Numero de computadoras por aglomerado"
 temp_df<- readr::read_rds("temp_df.rds")
 temp_df%>%
   group_by(AGLOMERADO)%>%
@@ -18,7 +18,8 @@ temp_df%>%
     Si=sum(Computadoras=="Si"),
     No=sum(Computadoras=="No")
   )%>%
-  mutate(Percent=Si/(Si+No))
+  mutate(Percent=Si/(Si+No))%>%
+knitr::kable()
 ```
 En Buenos Aires, 2444 tienen computadora y 1405 no tienen. En este sentido, el 63.5% de las personas en este aglomerado tienen computadora.
    
@@ -39,13 +40,17 @@ En conclusión, la Patagonia tiene la mayor proporción de personas con computad
 
 
 ```{r}
+#| label: tbl-acceso-interntet-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de acceso a interntet por aglomerado"
 temp_df%>%
   group_by(AGLOMERADO)%>%
   summarise(
     Si=sum(Acceso_internet=="Si"),
     No=sum(Acceso_internet=="No")
   )%>%
-  mutate(Percent=Si/(Si+No))
+  mutate(Percent=Si/(Si+No))%>%
+knitr::kable()
 ```
 En Buenos Aires, 3563 personas tienen acceso a Internet, y 286 no, lo cuál imploca que el 92.6% de los habitantes de esta región posee internet
 
@@ -58,15 +63,12 @@ En la Patagonia, 2009 personas tienen acceso y 127 no, lo cual indica que el 94.
 En resumen, el Centro tiene la mayor proporción de acceso a Internet (95.0%) y la región Pampeana tiene el menor porcentaje de acceso a Internet (88.5%). En general, los porcentajes de acceso a Internet son altos, variando entre 88.5% y 95.0%, lo cual indica un acceso amplio a Internet en la mayoría de los aglomerados de Argentina analizados.
 
 
-
-
-
-
-### 
-
-###Base individuos
+## Base individuos
 
 ```{r}
+#| label: tbl-uso-internet-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de uso de Internet por aglomerado"
 temp_df2<- readr::read_rds("temp_df2.rds")
 temp_df2%>%
   group_by(AGLOMERADO)%>%
@@ -74,7 +76,8 @@ temp_df2%>%
     Si=sum(Uso_internet=="Si"),
     No=sum(Uso_internet=="No")
   )%>%
-  mutate(Percent=Si/(Si+No))
+  mutate(Percent=Si/(Si+No))%>%
+knitr::kable()
 ```
 En Buenos Aires,8941 personas usan Internet, y 1082 no, lo cual implica que el 89.2% de las personas usa unternet en la región 
 En el Centro, 1071 personas usan Internet y 92 no, lo cual indica que el  92.1% de las personas de la región usa internet.
@@ -88,13 +91,17 @@ En la Patagonia,  5106 personas usan Internet y 401 no, lo que implica que el 92
 
 
 ```{r}
+#| label: tbl-uso-computadora-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de uso de computadora por aglomerado"
 temp_df2%>%
   group_by(AGLOMERADO)%>%
   summarise(
     Si=sum(Uso_computadora=="Si"),
     No=sum(Uso_computadora=="No")
   )%>%
-  mutate(Percent=Si/(Si+No))
+  mutate(Percent=Si/(Si+No))%>%
+knitr::kable()
 ```
 En Buenos Aires, 3803 usan computadora y 6220 no, lo cual indica que solo el 37.9% de las personas usan computadora 
   
@@ -115,13 +122,17 @@ En conclusión, la Patagonia tiene mayor porcentaje de personas que usan computa
 
 
 ```{r}
+#| label: tbl-uso-celular-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de uso de celular por aglomerado"
 temp_df2%>%
   group_by(AGLOMERADO)%>%
   summarise(
     Si=sum(Uso_celular=="Si"),
     No=sum(Uso_celular=="No")
   )%>%
-  mutate(Percent=Si/(Si+No))
+  mutate(Percent=Si/(Si+No))%>%
+knitr::kable()
 ```
 
 
