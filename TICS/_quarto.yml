@@ -13,7 +13,7 @@ book:
     - 4-Preguntas_de_investigación.qmd
     - 5-Procedimiento.qmd
     - 6-Análisis_descriptivo.qmd
-    - 7-Conclusiones
+    - 7-Conclusiones.qmd
     - 8-references.qmd
 
 bibliography: references.bib
