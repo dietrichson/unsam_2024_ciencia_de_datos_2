@@ -1,0 +1,41 @@
+---
+title: "Capitulo 2"
+format: html
+editor: visual
+---
+
+### Variaciones anuales de los subsidios
+
+En este grafico se pueden visualizar las columnas, correspondientes a cada año del periodo seleccionado para el analisis, los cuales se encuentran en linea orizontal en la parte inferior de las columnas. En linea vertical se puede leer la cantidad de tarjetas correpondientes a cada asiganacion de subsidio, diferenciado por colores. De este modo, logramos distinguir a grandes rasgos la progresión de cada uno de los subsidios asiganados.
+
+```{r}
+#| echo: false
+
+my_summary_by_year <- my_data %>% 
+  group_by(AÑO, SUBSIDIO) %>% 
+  summarize(
+    Pasajes = sum(CANT_TRJ),
+    .groups = "drop"
+  ) 
+```
+
+```{r}
+#| echo: false
+
+my_summary_by_year_2 <- my_summary_by_year %>% 
+  filter(!is.na(SUBSIDIO), SUBSIDIO != "OTRO")
+
+my_summary_3 <- my_summary_by_year_2 %>% 
+  group_by(AÑO) %>% 
+  summarize(
+    TOTAL = sum(Pasajes)
+  ) %>% 
+  left_join(my_summary_by_year_2) %>% 
+  mutate(Relativo = Pasajes/TOTAL) 
+
+
+my_summary_3 %>% 
+  ggplot(aes(AÑO, Relativo, fill = SUBSIDIO))+
+  geom_col()+
+  theme(legend.position  = "bottom")
+```
