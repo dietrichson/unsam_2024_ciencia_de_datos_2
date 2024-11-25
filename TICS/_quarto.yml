@@ -6,13 +6,15 @@ book:
   author: "Belén Barragán"
   date: "9/30/2024"
   chapters:
-    -1.Introducción.qmd 
-    -2.Datos.qmd  
-    -3.Variables
-    -4.Preguntas de investigación.qmd
-    -5.Procedimiento.qmd
-    -6.Análisis descriptivo.qmd
-    -7.references.qmd
+    - index.qmd
+    - 1-Introducción.qmd 
+    - 2-Datos.qmd  
+    - 3-Variables.qmd
+    - 4-Preguntas_de_investigación.qmd
+    - 5-Procedimiento.qmd
+    - 6-Análisis_descriptivo.qmd
+    - 7-Conclusiones
+    - 8-references.qmd
 
 bibliography: references.bib
 

@@ -1,0 +1,25 @@
+project:
+  type: book
+
+book:
+  title: "Análisis del uso del tiempo en Argentina a partir de la Encuesta Nacional sobre el Uso del Tiempo 2021"
+  author: "María Acha"
+  date: "2024-11-22"
+  chapters:
+    - index.qmd
+    - intro.qmd       
+    - capitulo1.qmd   
+    - capitulo2.qmd   
+    - capitulo3.qmd   
+    - conclusiones.qmd 
+    - references.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true  
+  pdf:
+    documentclass: scrreprt
+    lang: es
+    number-sections: true  
+    toc: false  

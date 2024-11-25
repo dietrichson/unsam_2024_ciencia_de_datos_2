@@ -1,0 +1,79 @@
+---
+title: "La distribución del tiempo en las tareas de Trabajo remunerado"
+format: html
+editor: visual
+---
+
+## La distribución del tiempo en las tareas de trabajo remunerado
+
+El trabajo remunerado constituye una de las actividades más estructurantes de la vida social y económica, ya que es una fuente principal de ingresos y desarrollo profesional para las personas. Sin embargo, el tiempo dedicado a esta actividad y su distribución suelen presentar diferencias cuando se analizan variables como el sexo, la región y el nivel educativo.
+
+En este capítulo, se analiza la variable que contiene las actividades laborales en la producción de bienes y servicios, a cambio de remuneración o beneficios. Incluye a asalariados en empresas o negocios, patrones o empleadores, trabajadores independientes o cuentapropistas, trabajadores familiares con o sin remuneración, pasantes remunerados, becarios y participantes de programas de empleo pagos. También abarca capacitaciones y cursos realizados dentro del tiempo o espacio laboral.
+
+Este capítulo se enfoca en analizar si las variables de género y región presentan patrones o no en el tiempo dedicado al trabajo remunerado.
+
+### Género
+
+A lo largo de la historia, los roles de género han influenciado la participación en el trabajo remunerado, con diferencias marcadas.
+
+```{r}
+#| include: false
+library(ggplot2)
+library(tidyverse)
+library(here)
+my_data <- readr::read_delim(here::here("datos-crudos/enut2021_base.txt"), delim = "|")
+source(here::here("R/nombrar-sexo.R"))
+source(here::here("R/nombrar-regiones.R"))
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| fig.cap: "Tiempo promedio dedicado al trabajo remunerado por género"
+my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, EDAD_SEL, TCS_ACT_TRABAJOOCUPACION) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_ACT_TRABAJOOCUPACION),
+    Mediana = median(TCS_ACT_TRABAJOOCUPACION),
+    Desviacion = sd(TCS_ACT_TRABAJOOCUPACION)
+  ) |> 
+  ggplot(aes(x = EDAD_SEL, y = Media, color = sexo)) +
+  # geom_col() +
+  geom_smooth() +
+  scale_x_continuous(breaks = seq(0, 100, by = 10)) +
+  xlab("Edad") +
+  ylab("Tiempo (en minutos)")
+```
+
+El análisis del tiempo dedicado al trabajo remunerado según el género muestra una clara tendencia: en prácticamente todos los años de la vida, los hombres destinan más tiempo a esta actividad que las mujeres. Esta diferencia es evidente desde la juventud y persiste hasta la vejez, reflejando las desigualdades de género en el acceso y la participación en el mercado laboral. Sin embargo, después de los 90 años, la brecha se reduce considerablemente, e incluso se observa que las diferencias desaparecen, lo que puede deberse a la disminución general de la actividad laboral en edades avanzadas para ambos géneros.
+
+Estos resultados sugieren la persistencia de un modelo tradicional de división del trabajo, donde los hombres tienden a asumir una mayor carga de trabajo remunerado, mientras que las mujeres suelen dedicar más tiempo a otras actividades, como el trabajo doméstico y de cuidados no remunerados.
+
+### Región
+
+```{r}
+#| echo: false
+#| message: false
+#| fig.cap: "Tiempo promedio dedicado al trabajo remunerado por región"
+my_data |>
+  mutate(Región = nombrar_regiones(REGION)) |>
+  select(Región, EDAD_SEL, TCS_ACT_TRABAJOOCUPACION) |>
+  group_by(EDAD_SEL, Región) |>
+  summarize(
+    Media = mean(TCS_ACT_TRABAJOOCUPACION),
+    Mediana = median(TCS_ACT_TRABAJOOCUPACION),
+    Desviacion = sd(TCS_ACT_TRABAJOOCUPACION)
+  ) |> 
+  ggplot(aes(x = EDAD_SEL, y = Media, color = Región)) +
+  # geom_col() +
+  geom_smooth() +
+  scale_x_continuous(breaks = seq(0, 100, by = 10)) +
+  xlab("Edad") +
+  ylab("Tiempo (en minutos)")
+```
+
+El análisis del tiempo dedicado al trabajo remunerado según la región muestra que no existen diferencias extremadamente significativas entre las distintas zonas del país. Sin embargo, se observan algunas tendencias particulares: el Noroeste presenta niveles más bajos de tiempo dedicado al trabajo remunerado en comparación con el resto de las regiones, mientras que Cuyo destaca con una mayor dedicación.
+
+Un aspecto llamativo es que, a partir de los 55 años, el Gran Buenos Aires muestra una predominancia en el tiempo dedicado al trabajo remunerado respecto a las otras regiones. Esto podría estar relacionado con el tipo de trabajo más prevalente en una gran ciudad, donde actividades vinculadas al sector servicios o trabajos administrativos pueden extenderse más allá de la edad de jubilación típica.

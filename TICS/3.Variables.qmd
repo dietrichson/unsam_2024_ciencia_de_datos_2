@@ -1,7 +1,0 @@
-## Variables
-
-Las variables que se utilizaran son "Tiene computadora"(Computadoras) y "Tiene acceso a internet"(Tiene_internet) en el caso de la Base hogar.
-
-En el caso de la Base de las Personas, "Uso internet" (Uso_internet), "Uso computadora" (Uso_computadora) y "Uso_ celular" (Uso_ celular) .
-
-Todas estas variables seran emparentadas con la variable de regiones(AGLOMERADO).

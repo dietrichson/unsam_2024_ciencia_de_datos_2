@@ -1,0 +1,143 @@
+## Análisis descriptivo
+
+### Base Hogar
+
+```{r}
+#include:false
+library(tidyverse)
+```
+
+```{r}
+#| label: tbl-computadora-por-aglomerado
+#| echo: false
+#| tbl-cap: "Numero de computadoras por aglomerado
+temp_df<- readr::read_rds("temp_df.rds")
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Computadoras=="Si"),
+    No=sum(Computadoras=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+En Buenos Aires, 2444 tienen computadora y 1405 no tienen. En este sentido, el 63.5% de las personas en este aglomerado tienen computadora.
+   
+En el Centro, 242 personas tienen computadora y 218 no, lo cual  indica que el 52.7% tienen computadora.
+
+En Cuyo, 911 personas tienen computadora, mientras que 663 no la tienen, lo que indica que el 57.9 tiene computadora.
+
+En el Litoral, 2153 personas tienen computadora frente a 2021 que no. Es decir que el 51.6% posee este dispositivo 
+
+En el Noroeste, 2167 personas tienen computadora y 1715 no. En este sentido, el 55.8% posee computadora 
+
+En la región Pampeana, 176 personas tienen computadora y 171, lo cual indica que solo el 50.7 posee computadora 
+
+En la Patagonia, 1414 personas tienen computadora y 722 no. Es así que se infiere que el 66.2% posee este dispositivo 
+
+En conclusión, la Patagonia tiene la mayor proporción de personas con computadora (66.2%) y la región Pampeana tiene el menor porcentaje de acceso a computadoras (50.7%). En términos generales, los porcentajes de acceso a computadoras varían, pero están alrededor del 50% al 66%, con diferencias notables entre los aglomerados.
+
+
+
+```{r}
+temp_df%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Acceso_internet=="Si"),
+    No=sum(Acceso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+En Buenos Aires, 3563 personas tienen acceso a Internet, y 286 no, lo cuál imploca que el 92.6% de los habitantes de esta región posee internet
+
+En el Centro, 437 personas tienen acceso y 23 no, lo cual indica que el  95.0% de los habitantes accede a internet.
+En Cuyo,1475 personas tienen acceso y 99 no, por lo que el 93.7% de los habitantes tienen acceso a Internet. 
+En el Litoral, 3785 personas tienen acceso y 389 no, lo cual significa que el 90.7% tiene acceso a internet.
+En el Noroeste, 3638 personas tienen acceso y 244 no, lo cual implica que el 93.7% de los habitantes tengan Internet.
+En la región Pampeana, 307 personas tienen acceso y 40 no, lo cual indica que el 88.5% de las personas tiene Internet.
+En la Patagonia, 2009 personas tienen acceso y 127 no, lo cual indica que el 94.1% de los habitantes de la región tiene acceso a internet. 
+En resumen, el Centro tiene la mayor proporción de acceso a Internet (95.0%) y la región Pampeana tiene el menor porcentaje de acceso a Internet (88.5%). En general, los porcentajes de acceso a Internet son altos, variando entre 88.5% y 95.0%, lo cual indica un acceso amplio a Internet en la mayoría de los aglomerados de Argentina analizados.
+
+
+
+
+
+
+### 
+
+###Base individuos
+
+```{r}
+temp_df2<- readr::read_rds("temp_df2.rds")
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_internet=="Si"),
+    No=sum(Uso_internet=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+En Buenos Aires,8941 personas usan Internet, y 1082 no, lo cual implica que el 89.2% de las personas usa unternet en la región 
+En el Centro, 1071 personas usan Internet y 92 no, lo cual indica que el  92.1% de las personas de la región usa internet.
+En Cuyo, 4170 personas usan Internet y 383 no, lo cual quiere decir que el 91.6% de las personas usa internet. 
+En el Litoral, 9997 personas usan Internet frente a 1471 que no. Esto quiere decir que el  87.2% de las personas de la región usan Internet. 
+En el Noroeste,10551 personas usan Internet y 1303 no,  lo cual implica que el 89.0% de las personas utiliza internet.
+En la región Pampeana, 718 personas usan Internet y 132 no, lo cual indica que el 84.5% de las personas usa internet.
+En la Patagonia,  5106 personas usan Internet y 401 no, lo que implica que el 92.7% de las personas de la región usa internet.
+ En conclusión, la Patagonia tiene el mayor porcentaje de personas que usan Internet (92.7%) y la región Pampeana presenta el menor porcentaje de uso de Internet (84.5%). En general, el uso de Internet en los aglomerados es alto, con porcentajes que oscilan entre 84.5% y 92.7%, lo que indica una alta adopción de Internet en la mayoría de las regiones analizadas.
+
+
+
+```{r}
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_computadora=="Si"),
+    No=sum(Uso_computadora=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+En Buenos Aires, 3803 usan computadora y 6220 no, lo cual indica que solo el 37.9% de las personas usan computadora 
+  
+En el Centro, 458 usan computadora y 705 no. Esto quiere decir que solo  el 39.4%. Usa este dispositivo.
+
+En Cuyo, 1548 usan computadora y 3005 no, lo cual implica que solo el 34.0% de las personas utiliza computadora 
+
+En el Litoral, 3915 personas usan computadora y 7553 no. Lo que significa que solo el 34.1% de las personas usa este dispositivo. 
+
+En el Noroeste, 4254 personas usan computadora y 7600 no, lo cual implica que solo el 35.9% de las personas usa computadora.
+
+En la región Pampeana, 279 personas usan computadora y 571 no. Esto quiere decir que solo un 32.8% de las personas de esta región utiliza este dispositivo.
+
+En la Patagonia, 2681 personas usan computadora y 2826 no, lo cual implica que el 48.7% de las personas usa computadora.
+
+En conclusión, la Patagonia tiene mayor porcentaje de personas que usan computadora(48.7%) y la región Pampeana tiene el menor porcentaje de uso de computadoras(32.8%).En general,  se puede observar que el uso de este dispositivo nunca supera el 50% de la población de cada región.
+
+
+
+```{r}
+temp_df2%>%
+  group_by(AGLOMERADO)%>%
+  summarise(
+    Si=sum(Uso_celular=="Si"),
+    No=sum(Uso_celular=="No")
+  )%>%
+  mutate(Percent=Si/(Si+No))
+```
+
+
+En Buenos Aires 9063 personas encuestadas utilizan celular y 960 no, lo cual implica que el 90.42% de las personas usa celular.
+
+En el Centro, 1019 personas usan celular y 144 no, lo cual implica que el 87.62% de los encuestados utiliza celular. 
+
+En Cuyo, 4178 personas usan celular y 375 no, por lo que el 91.76% es usuario de este dispositivo. 
+
+En el Litoral 10,347 personas contestaron afirmativamente y 1121 no, lo que significa que el 90.22% de los encuestados usa celular.
+
+En el Noroeste, 10,530 personas usan celular y 1324 no, lo que implica que el 88.83% de las personas usan este dispositivo. 
+
+En la región Pampeana, 776 personas usan celular y 74 no lo hacen, por lo que el 91.29% de las personas de esta región son usuarios del celulares.
+
+En la Patagonia, 5180 personas usan celular y 327 no, por lo que el 94.06% de las personas de esta región usa celular. 
+
+En conclusión, la región con mayor proporción afirmativa fue la Patagonia (94.06%) y la región con menor proporción afirmativa fue el Centro (87.62%). En general,  se puede observar que regiones como el Litoral y Noroeste tienen los mayor volúmen de respuestas afirmativas, lo que podría indicar poblaciones más grandes o mayor participación.  Por otro lado, la región Pampeana,  tiene el menor volumen absoluto de respuestas, pero una alta proporción afirmativa.
+

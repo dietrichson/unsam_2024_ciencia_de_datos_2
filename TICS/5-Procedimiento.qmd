@@ -1,0 +1,34 @@
+##Procedimiento Como primer paso, se realizará la carga de @tidyvers,para el manejo de datos. Luego se utilizara source para cargar una función que se encuentra en el archivo "nombrar aglomerado" para facilitar el desarrollo de los código cuando se requiera utilizar la variable "aglomerado". También, se cargaran las bases de datos correspondientes (base individualy base hogar) y se modificará los nombres de las variables para una mejor identificación a la hora de realizar tablas para el análisis del trabajo.
+
+```{r}
+#| include: false
+library(tidyverse)
+```
+
+```{r}
+#| include: false
+library(tidyverse)
+source(here::here("R/nombraraglomerado.R"))
+my_data <- readr::read_delim(here::here("datos-crudos/EPH_usu_hog_tic_t423[1].txt"))
+temp_df<- my_data |>
+  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))|>
+  filter(IH_II_01<=2)|>
+  filter(IH_II_02<=2)|>
+  mutate(Computadoras=ifelse(IH_II_01==1,"Si","No"))|>
+  mutate(Acceso_internet=ifelse(IH_II_02    ==1,"Si","No"))
+readr::write_rds(temp_df,"temp_df.rds")
+```
+
+```{r}
+#| include: false
+my_data2 <- readr::read_delim(here::here("datos-crudos/EPH_usu_indiv_tic_t423[1].txt"))
+temp_df2<- my_data2 |>
+  mutate(AGLOMERADO = nombrar_aglomerado(AGLOMERADO))|>
+filter(IP_III_04<=2)|>
+  filter(IP_III_05<=2)|>
+filter(IP_III_06<=2)|>
+mutate(Uso_internet=ifelse(IP_III_04==1,"Si","No"))|>
+  mutate(Uso_computadora=ifelse(IP_III_05==1,"Si","No"))|>
+mutate(Uso_celular=ifelse(IP_III_06==1,"Si","No"))
+  readr::write_rds(temp_df2,"temp_df2.rds")
+```

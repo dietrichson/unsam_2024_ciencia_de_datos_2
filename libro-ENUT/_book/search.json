@@ -1,0 +1,102 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Análisis del uso del tiempo en Argentina a partir de la Encuesta Nacional sobre el Uso del Tiempo 2021",
+    "section": "",
+    "text": "Portada\nEste es un libro sobre el análisis del uso del tiempo en Argentina a partir de la Encuesta Nacional sobre el Uso del Tiempo 2021, realizada por el Instituto Nacional de Estadística y Censos (INDEC).\n\nIntroducción\nCapítulo 1: La distribución del tiempo en las tareas domésticas\nCapítulo 2: La distribución del tiempo en las tareas de Trabajo remunerado\nCapítulo 3: La distribución del tiempo en las tareas de bienestar y salud\nConclusiones\nReferencias",
+    "crumbs": [
+      "Portada"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introducción",
+    "section": "",
+    "text": "Introducción\nEste libro se propone analizar el uso del tiempo en Argentina, tomando como base los datos de la Encuesta Nacional sobre el Uso del Tiempo (ENUT) 2021.\nEn todos los casos, el análisis se centrará en el tiempo dedicado a distintas actividades en un día, medido en minutos, y su relación con la edad de las personas. El objetivo es identificar patrones y desigualdades en la distribución del tiempo entre distintos grupos de la población, considerando variables como el sexo y la región.\nEl primer capítulo abordará el tiempo dedicado a las tareas domésticas, examinando cómo se distribuye esta carga a lo largo de la vida y las diferencias entre géneros y regiones. En el segundo capítulo, se analizará el trabajo remunerado, explorando las variaciones en el tiempo de dedicación según el género y el contexto geográfico. Finalmente, el tercer capítulo se centrará en actividades relacionadas con la salud y el bienestar, tomando dos variables fundamentales: dormir y hacer deporte. Estas actividades se analizarán como indicadores del tiempo destinado al cuidado personal.\nA lo largo del libro, los gráficos serán una herramienta clave para visualizar las tendencias y resaltar las diferencias en la manera en que se distribuye el tiempo en la sociedad argentina, proporcionando una visión integral sobre cómo distintos grupos gestionan su tiempo en función de sus características demográficas y de género.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "capitulo1.html",
+    "href": "capitulo1.html",
+    "title": "2  La distribución del tiempo en las tareas domésticas",
+    "section": "",
+    "text": "2.1 La distribución del tiempo en las tareas domésticas\nLas tareas domésticas son una parte esencial de la vida cotidiana, ya que incluyen actividades necesarias para el funcionamiento del hogar, como la limpieza, la cocina y el mantenimiento del espacio habitacional. En el contexto de la ENUT 2021, estas actividades revelan importantes disparidades en la distribución del tiempo según sexo, región y nivel educativo.\nComo es sabido, históricamente, las tareas domésticas han sido una responsabilidad asumida principalmente por las mujeres, lo cual refleja una desigualdad estructural en la organización social del tiempo. Sin embargo, la intensidad y la dedicación varían según factores socioeconómicos y geográficos.\nEn este capítulo, se toma la variable de tiempo dedicado a tareas domésticas no pagas, incluyendo: preparar y servir la comida; limpiar la vivienda; lavar, planchar o arreglar la ropa/calzado; reparar y mantener la vivienda o los bienes del hogar; hacer pagos y trámites del hogar; hacer compras para el hogar; cuidar mascotas y plantas.\nAnalizaremos cómo se distribuye el tiempo dedicado a las tareas domésticas entre diferentes grupos, examinando la persistencia de roles de género tradicionales y las variaciones regionales en las prácticas domésticas en la participación en estas actividades.\nA partir del analisis de 2 variables (sexo y región), este capítulo se enfoca en responder a la pregunta de si existen diferencias significativas en la distribución del tiempo dedicado a las tareas domesticas del hogar en argentina.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>La distribución del tiempo en las tareas domésticas</span>"
+    ]
+  },
+  {
+    "objectID": "capitulo1.html#la-distribución-del-tiempo-en-las-tareas-domésticas",
+    "href": "capitulo1.html#la-distribución-del-tiempo-en-las-tareas-domésticas",
+    "title": "2  La distribución del tiempo en las tareas domésticas",
+    "section": "",
+    "text": "2.1.1 Género\nEn primer lugar, se emplea la variable binaria de sexo asignado al nacer (varón/mujer), dado que la cantidad de datos disponibles sobre identidad de género no es lo suficientemente representativa para un análisis concluyente.\nEl objetivo principal es identificar las diferencias en el uso del tiempo entre hombres y mujeres, analizando cómo el género influye en la participación y el reparto de las actividades cotidianas, tanto dentro como fuera del hogar.\n\n\n\n\n\n\n\n\nFigure 2.1: Tiempo promedio dedicado a tareas domésticas por género\n\n\n\n\n\nA partir del análisis del tiempo dedicado a las tareas domésticas según la edad y el sexo, basado en los datos de la ENUT 2021, se observan claras diferencias de género a lo largo de toda la vida, desde los 15 hasta casi 100 años. Como se muestra en ?fig-fig-domesticas-genero, las mujeres dedican consistentemente más tiempo que los hombres a las tareas domésticas, y esta desigualdad comienza desde edades tempranas.\nLa brecha en el tiempo destinado a estas actividades se amplía considerablemente durante la etapa adulta, especialmente entre los 30 y 60 años. Este período coincide con la fase en la que muchas mujeres asumen múltiples responsabilidades, como el cuidado de los hijos, el trabajo remunerado y las tareas del hogar. La mayor diferencia en el tiempo dedicado a las tareas domésticas durante estas décadas muestra todavía los roles de género tradicionales, donde se espera que las mujeres asuman una mayor carga en el ámbito doméstico.\nA partir de los 60 años, la brecha comienza a disminuir gradualmente, lo que puede estar relacionado con la salida de los hijos del hogar, la jubilación o cambios en las dinámicas familiares que redistribuyen algunas responsabilidades. Sin embargo, incluso en edades avanzadas, las mujeres continúan dedicando más tiempo a las tareas del hogar que los hombres, evidenciando una desigualdad estructural en la distribución del trabajo no remunerado en la sociedad.\n\n\n2.1.2 Región\nEn esta segunda parte, nos centraremos en cómo varía el tiempo dedicado a las tareas domésticas según la región en Argentina, utilizando los datos de la ENUT 2021. Para este estudio, se consideran seis regiones: Gran Buenos Aires, Pampeana, Noroeste, Noreste, Cuyo y Patagonia.\nEl análisis regional permitirá identificar diferencias en la distribución del tiempo dedicado a las tareas del hogar, destacando cómo factores culturales, económicos y de infraestructura pueden afectar la carga de trabajo doméstico en cada zona. Esto brindará una comprensión más profunda de las desigualdades en el uso del tiempo y las particularidades que caracterizan a cada región del país.\n\n\n\n\n\n\n\n\nFigure 2.2: Tiempo promedio dedicado a tareas domésticas por región\n\n\n\n\n\nComo se observa en ?fig-fig-domesticas-region, no se encuentran diferencias muy marcadas en la distribución del tiempo entre las distintas zonas del país. Sin embargo, se destacan algunas particularidades: en el Noreste, el tiempo promedio dedicado a las tareas domésticas tiende a ser menor en comparación con otras regiones, mientras que en Cuyo se registra una mayor dedicación.\nAdemás, en todas las regiones se observa una tendencia similar en la curva de dedicación al trabajo doméstico, con un aumento significativo en el tiempo destinado a estas tareas entre los 60 y 80 años. Esto sugiere que, independientemente de la región, las personas mayores asumen una mayor carga en las actividades del hogar, probablemente debido a la jubilación o al cambio en las dinámicas familiares.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>La distribución del tiempo en las tareas domésticas</span>"
+    ]
+  },
+  {
+    "objectID": "capitulo2.html",
+    "href": "capitulo2.html",
+    "title": "3  La distribución del tiempo en las tareas de Trabajo remunerado",
+    "section": "",
+    "text": "3.1 La distribución del tiempo en las tareas de trabajo remunerado\nEl trabajo remunerado constituye una de las actividades más estructurantes de la vida social y económica, ya que es una fuente principal de ingresos y desarrollo profesional para las personas. Sin embargo, el tiempo dedicado a esta actividad y su distribución suelen presentar diferencias cuando se analizan variables como el sexo, la región y el nivel educativo.\nEn este capítulo, se analiza la variable que contiene las actividades laborales en la producción de bienes y servicios, a cambio de remuneración o beneficios. Incluye a asalariados en empresas o negocios, patrones o empleadores, trabajadores independientes o cuentapropistas, trabajadores familiares con o sin remuneración, pasantes remunerados, becarios y participantes de programas de empleo pagos. También abarca capacitaciones y cursos realizados dentro del tiempo o espacio laboral.\nEste capítulo se enfoca en analizar si las variables de género y región presentan patrones o no en el tiempo dedicado al trabajo remunerado.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>La distribución del tiempo en las tareas de Trabajo remunerado</span>"
+    ]
+  },
+  {
+    "objectID": "capitulo2.html#la-distribución-del-tiempo-en-las-tareas-de-trabajo-remunerado",
+    "href": "capitulo2.html#la-distribución-del-tiempo-en-las-tareas-de-trabajo-remunerado",
+    "title": "3  La distribución del tiempo en las tareas de Trabajo remunerado",
+    "section": "",
+    "text": "3.1.1 Género\nA lo largo de la historia, los roles de género han influenciado la participación en el trabajo remunerado, con diferencias marcadas.\n\n\n\n\n\nTiempo promedio dedicado al trabajo remunerado por género\n\n\n\n\nEl análisis del tiempo dedicado al trabajo remunerado según el género muestra una clara tendencia: en prácticamente todos los años de la vida, los hombres destinan más tiempo a esta actividad que las mujeres. Esta diferencia es evidente desde la juventud y persiste hasta la vejez, reflejando las desigualdades de género en el acceso y la participación en el mercado laboral. Sin embargo, después de los 90 años, la brecha se reduce considerablemente, e incluso se observa que las diferencias desaparecen, lo que puede deberse a la disminución general de la actividad laboral en edades avanzadas para ambos géneros.\nEstos resultados sugieren la persistencia de un modelo tradicional de división del trabajo, donde los hombres tienden a asumir una mayor carga de trabajo remunerado, mientras que las mujeres suelen dedicar más tiempo a otras actividades, como el trabajo doméstico y de cuidados no remunerados.\n\n\n3.1.2 Región\n\n\n\n\n\nTiempo promedio dedicado al trabajo remunerado por región\n\n\n\n\nEl análisis del tiempo dedicado al trabajo remunerado según la región muestra que no existen diferencias extremadamente significativas entre las distintas zonas del país. Sin embargo, se observan algunas tendencias particulares: el Noroeste presenta niveles más bajos de tiempo dedicado al trabajo remunerado en comparación con el resto de las regiones, mientras que Cuyo destaca con una mayor dedicación.\nUn aspecto llamativo es que, a partir de los 55 años, el Gran Buenos Aires muestra una predominancia en el tiempo dedicado al trabajo remunerado respecto a las otras regiones. Esto podría estar relacionado con el tipo de trabajo más prevalente en una gran ciudad, donde actividades vinculadas al sector servicios o trabajos administrativos pueden extenderse más allá de la edad de jubilación típica.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>La distribución del tiempo en las tareas de Trabajo remunerado</span>"
+    ]
+  },
+  {
+    "objectID": "capitulo3.html",
+    "href": "capitulo3.html",
+    "title": "4  La distribución del tiempo en las tareas de bienestar y salud",
+    "section": "",
+    "text": "4.1 La distribución del tiempo en las tareas de bienestar y salud\nEn este tercer capítulo, abordaremos el tiempo dedicado a actividades esenciales para el bienestar y la salud, centrándonos en dos variables clave: dormir y hacer deporte. En la actualidad, existe una creciente concienciación sobre la importancia de estos hábitos para mantener una vida sana y equilibrada. Dormir lo suficiente es fundamental para la recuperación física y mental, mientras que la práctica regular de deporte contribuye a la prevención de enfermedades y al fortalecimiento general del organismo.\nEste análisis permitirá explorar cómo se distribuye el tiempo destinado a estas actividades en distintos grupos de la población, identificando posibles desigualdades en función del género y la región.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribución del tiempo en las tareas de bienestar y salud</span>"
+    ]
+  },
+  {
+    "objectID": "capitulo3.html#la-distribución-del-tiempo-en-las-tareas-de-bienestar-y-salud",
+    "href": "capitulo3.html#la-distribución-del-tiempo-en-las-tareas-de-bienestar-y-salud",
+    "title": "4  La distribución del tiempo en las tareas de bienestar y salud",
+    "section": "",
+    "text": "4.1.1 Género\n\n\n\n\n\nTiempo promedio dedicado a dormir por género\n\n\n\n\nEl análisis del tiempo dedicado a dormir según el género muestra que, en general, no hay diferencias muy marcadas entre hombres y mujeres. Sin embargo, se observa una leve predominancia en el tiempo de sueño de las mujeres hasta aproximadamente los 75 años. A partir de esa edad, la tendencia se invierte, y los hombres comienzan a dedicar más tiempo al descanso nocturno.\n\n\n\n\n\nTiempo promedio dedicado a hacer deporte por género\n\n\n\n\nEl análisis del tiempo dedicado a la práctica de deporte según el género muestra que, en general, los hombres siempre dedican más tiempo a esta actividad que las mujeres. La diferencia es más notable en la adolescencia, alrededor de los 15 años, donde la brecha alcanza su mayor amplitud. Sin embargo, a medida que las personas envejecen, el tiempo destinado al deporte tiende a disminuir en ambos géneros.\nLa curva de dedicación al deporte sigue una tendencia descendente a lo largo de la vida. En el caso de los hombres, la reducción es más abrupta, con una caída pronunciada a partir de la adolescencia y la juventud temprana. En cambio, para las mujeres, la disminución es más gradual y progresiva. Esta diferencia en la velocidad del descenso indica que los hombres tienden a reducir su tiempo en actividades deportivas de manera más drástica con la edad, mientras que en las mujeres, el descenso es menos brusco, aunque constante.\nEn conjunto, estos patrones reflejan cómo la participación en actividades deportivas es más intensa en edades jóvenes y va disminuyendo a medida que avanzan los años, con diferencias notables en la forma en que esta reducción se manifiesta entre hombres y mujeres.\n\n\n4.1.2 Región\n\n\n\n\n\nFigura: Tiempo promedio dedicado a dormir por región\n\n\n\n\n\n\n\n\n\nFigura 3: Tiempo promedio dedicado a hacer deporte por región\n\n\n\n\nEl análisis del tiempo dedicado a la práctica de deporte según la región muestra una predominancia de la Patagonia a lo largo de casi toda la vida. Esta región presenta niveles más altos de dedicación al deporte en comparación con otras, lo que puede estar relacionado con su entorno natural y la cultura deportiva. Sin embargo, a partir de los 85 años, se observa un descenso abrupto en el tiempo destinado al deporte en la Patagonia.\nEn contraste, el Gran Buenos Aires (GBA) mantiene una curva más estable a lo largo de la vida, con menores fluctuaciones en la dedicación al deporte. A partir de los 85 años, GBA toma la delantera respecto a las demás regiones, mostrando una mayor consistencia en la práctica deportiva en edades avanzadas. Esto podría estar relacionado con la mayor oferta de actividades físicas adaptadas a adultos mayores en la gran ciudad o con estilos de vida que favorecen una mayor continuidad en la actividad física.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>La distribución del tiempo en las tareas de bienestar y salud</span>"
+    ]
+  },
+  {
+    "objectID": "conclusiones.html",
+    "href": "conclusiones.html",
+    "title": "5  Conclusiones",
+    "section": "",
+    "text": "El análisis realizado sobre el uso del tiempo en Argentina, basado en los datos de la ENUT 2021, permite identificar patrones y desigualdades en función del sexo y la región en tres áreas fundamentales de la vida cotidiana: las tareas domésticas, el trabajo remunerado y las actividades de bienestar y salud.\nLos resultados evidencian cómo factores como el género y el lugar de residencia condicionan la forma en que distintos grupos poblacionales gestionan el tiempo.\n\nEn cuanto a las tareas domésticas, los datos reflejan una clara desigualdad de género. Las mujeres dedican consistentemente más tiempo a estas actividades a lo largo de toda la vida, especialmente en las etapas adultas, lo que evidencia la persistencia de roles tradicionales de género.\nRegionalmente, no se observaron diferencias marcadas, aunque destacan particularidades como la mayor dedicación al trabajo doméstico en Cuyo y la menor en el Noreste.\nEn el ámbito del trabajo remunerado, los hombres invierten más tiempo en estas actividades en todas las etapas de la vida, reafirmando las desigualdades de género en el aspecto laboral.\nDesde una perspectiva regional, aunque no hay grandes diferencias, se destacan niveles más bajos de tiempo dedicado al trabajo remunerado en el Noroeste y mayor en Cuyo, con un rol destacado de Gran Buenos Aires en edades cercanas a la jubilación.\nPor último, en las actividades de bienestar y salud, se observa que las diferencias de género son menores en el tiempo destinado a dormir, pero significativas en la práctica deportiva, donde los hombres tienden a dedicar más tiempo. Las mujeres, aunque muestran un descenso más gradual en la dedicación al deporte, mantienen una participación menor a lo largo de la vida.\nDesde el enfoque regional, la Patagonia se destaca por una mayor dedicación al deporte en casi todas las etapas de la vida, posiblemente influida por factores culturales y geográficos.\n\nEn síntesis, el análisis confirma la existencia de patrones de desigualdad en el uso del tiempo según el sexo y la región en Argentina. Las brechas de género, tanto en las tareas domésticas como en el trabajo remunerado, son evidentes y reflejan desigualdades estructurales que persisten. Del otro lado, aunque las diferencias regionales son menos pronunciadas, las particularidades observadas resaltan la influencia del contexto socioeconómico y cultural en las prácticas cotidianas.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conclusiones</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Encuesta Nacional de Uso del Tiempo 2021 (2021). Instituto Nacional de Estadísticas y Censos. https://www.indec.gob.ar/",
+    "crumbs": [
+      "References"
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+##Preguntas de investigación
+
+A partir de estas variables, podemos planteae las siguientes pregunras de investigacion:
+
+-   ¿Existen diferencias significativas en el acceso a computadoras entre las diferentes regiones de Argentina?
+
+-   ¿Cómo varía el acceso a internet entre las diferentes regiones de Argentina?
+
+-   ¿El uso de internet está asociado con el nivel de acceso a computadoras en las distintas regiones de Argentina?
+
+-   ¿Qué región de Argentina muestra mayor uso de celulares para acceder a internet?
+
+-   ¿Existen diferencias en el uso de computadoras entre las distintas regiones de Argentina, considerando el acceso a internet?
+
+-   ¿Cuál es la relación entre la disponibilidad de computadoras y el uso de celulares en distintas regiones de Argentina?
+
+-   ¿El acceso a internet afecta de manera desigual el uso de tecnología (computadoras, celulares) en diferentes regiones de Argentina?

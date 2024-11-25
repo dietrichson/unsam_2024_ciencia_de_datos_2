@@ -103,9 +103,79 @@ nombrar_horas_trabajo <- function(BHSL08_SEL){
 ## Uso del tiempo según género
 
 ```{r}
-temp_df <- temp_df |>
-  group_by(nombrar_sexo, TCS_GRANGRUPO_TRABAJOTOTAL)
+temp_df <- my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+temp_df
 ```
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  )
+
+```
+
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) 
+```
+
+```{r}
+ my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+```
+
+
+```{r}
+my_data |>
+  mutate(sexo = nombrar_sexo(SEXO_SEL)) |>
+  select(sexo,EDAD_SEL, TCS_GRANGRUPO_TRABAJOTOTAL) |>
+  group_by(EDAD_SEL, sexo) |>
+  summarize(
+    Media = mean(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Mediana = median(TCS_GRANGRUPO_TRABAJOTOTAL),
+    Desviacion = sd(TCS_GRANGRUPO_TRABAJOTOTAL)
+  ) |> 
+  ggplot(aes(x=EDAD_SEL, y=Media, color = sexo))+
+  #geom_col()+
+  geom_smooth()+
+  scale_x_continuous(breaks = seq(0,100, by =10))
+
+```
+
 
 ```{r}
 library(dplyr)
