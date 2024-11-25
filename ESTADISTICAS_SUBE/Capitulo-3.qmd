@@ -1,7 +1,9 @@
 ---
-title: "Capitulo 2"
+title: "Capitulo 3"
 format: html
 editor: visual
 ---
 
 # Interpretacion de los datos
+
+A partir de los datos que se obtuvieron del período seleccionado, podemos deducir las variaciones que tuvieron las distintas ayudas sociales. A juzgar por las columnas en el "capitulo 2", a grandes se evidencia una reduccion de notable en los subsidios Progresar y en la AUH
